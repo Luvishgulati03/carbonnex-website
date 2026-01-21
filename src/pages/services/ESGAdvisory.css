@@ -1,0 +1,155 @@
+/* ESG Advisory Page Styles */
+.esg-advisory-page {
+    background: #ffffff;
+}
+
+/* Frameworks Section - Fix Transparency/Visibility */
+.frameworks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+    padding-bottom: 4rem;
+}
+
+.framework-card {
+    background: rgba(255, 255, 255, 0.05);
+    /* Glass effect on dark bg */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.framework-card:hover {
+    background: rgba(16, 185, 129, 0.1);
+    /* Green tint on hover */
+    border-color: #10B981;
+    transform: translateY(-5px);
+}
+
+.framework-card h3 {
+    color: #10B981;
+    /* Emerald green title */
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.framework-card p {
+    color: #E5E7EB;
+    /* Light gray text for contrast */
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Service Pillars - Redesign */
+.pillar-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    height: 100%;
+    border: 1px solid #F3F4F6;
+}
+
+.pillar-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.pillar-card h3 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    font-weight: 800;
+}
+
+.pillar-card ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.pillar-card li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: #374151;
+    line-height: 1.5;
+}
+
+.pillar-card li svg {
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+/* Offerings Grid - vibrant aesthetic */
+.offerings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.offering-card {
+    position: relative;
+    background: white;
+    padding: 2.5rem;
+    border-radius: 16px;
+    border: 1px solid #E5E7EB;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.offering-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, #059669, #34D399);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.offering-card:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+    border-color: #A7F3D0;
+}
+
+.offering-card:hover::before {
+    opacity: 1;
+}
+
+.offering-card__num {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #F3F4F6;
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    line-height: 1;
+}
+
+.offering-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.offering-card p {
+    color: #6B7280;
+    line-height: 1.6;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}

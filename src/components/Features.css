@@ -1,0 +1,66 @@
+.features {
+    background: var(--background-light);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--spacing-2xl);
+    margin-top: var(--spacing-4xl);
+}
+
+.feature-card {
+    position: relative;
+    background: white;
+    border-left: 4px solid var(--primary-green);
+    animation: slideUp 0.6s ease-out backwards;
+}
+
+.feature-number {
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    color: var(--primary-green);
+    opacity: 0.2;
+    margin-bottom: var(--spacing-md);
+    line-height: 1;
+}
+
+.feature-title {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--primary-navy);
+    margin-bottom: var(--spacing-md);
+}
+
+.feature-description {
+    font-size: var(--font-size-base);
+    color: var(--text-light);
+    line-height: 1.7;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-green), var(--accent-emerald));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-slow);
+}
+
+.feature-card:hover::before {
+    transform: scaleX(1);
+}
+
+.feature-card:hover {
+    border-left-color: var(--accent-emerald);
+}
+
+@media (max-width: 768px) {
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,110 @@
+.accreditations {
+    background: white;
+}
+
+.accreditations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-5xl);
+}
+
+.accreditation-badge {
+    background: var(--background-light);
+    border: 2px solid var(--border-grey);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    transition: all var(--transition-base);
+    animation: fadeIn 0.5s ease-out backwards;
+}
+
+.badge-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.badge-icon {
+    width: 48px;
+    height: 48px;
+    color: var(--primary-green);
+    transition: transform var(--transition-base);
+}
+
+.badge-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.badge-text {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--primary-navy);
+    text-align: center;
+}
+
+.accreditation-badge:hover {
+    border-color: var(--primary-green);
+    background: white;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px var(--shadow-md);
+}
+
+.accreditation-badge:hover .badge-icon {
+    transform: scale(1.1);
+}
+
+.trust-indicators {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-2xl);
+    padding: var(--spacing-4xl);
+    background: linear-gradient(135deg, var(--primary-navy), #1e3a5f);
+    border-radius: var(--radius-xl);
+    color: white;
+}
+
+.trust-item {
+    text-align: center;
+}
+
+.trust-number {
+    font-size: var(--font-size-5xl);
+    font-weight: 800;
+    color: var(--primary-green);
+    margin-bottom: var(--spacing-sm);
+}
+
+.trust-label {
+    font-size: var(--font-size-base);
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .accreditations-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-md);
+    }
+
+    .trust-indicators {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-xl);
+        padding: var(--spacing-2xl);
+    }
+
+    .trust-number {
+        font-size: var(--font-size-4xl);
+    }
+}
+
+@media (max-width: 480px) {
+    .accreditations-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .trust-indicators {
+        grid-template-columns: 1fr;
+    }
+}

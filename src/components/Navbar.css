@@ -1,0 +1,131 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px var(--shadow-sm);
+    z-index: 1000;
+    transition: all var(--transition-base);
+}
+
+.navbar-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-lg) 0;
+}
+
+.navbar-logo {
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+}
+
+.logo-text {
+    color: var(--primary-navy);
+}
+
+.logo-highlight {
+    color: var(--primary-green);
+}
+
+.navbar-menu {
+    display: flex;
+    list-style: none;
+    gap: var(--spacing-xl);
+    align-items: center;
+}
+
+.navbar-menu li a {
+    font-weight: 500;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: color var(--transition-fast);
+    position: relative;
+}
+
+.navbar-menu li a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-green);
+    transition: width var(--transition-base);
+}
+
+.navbar-menu li a:hover {
+    color: var(--primary-green);
+}
+
+.navbar-menu li a:hover::after {
+    width: 100%;
+}
+
+.navbar-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.navbar-toggle span {
+    width: 25px;
+    height: 3px;
+    background: var(--primary-navy);
+    transition: all var(--transition-base);
+    border-radius: 2px;
+}
+
+.navbar-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.navbar-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.navbar-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+@media (max-width: 768px) {
+    .navbar-toggle {
+        display: flex;
+    }
+
+    .navbar-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: var(--spacing-xl);
+        box-shadow: 0 4px 6px var(--shadow-sm);
+        opacity: 0;
+        transform: translateY(-10px);
+        pointer-events: none;
+        transition: all var(--transition-base);
+    }
+
+    .navbar-menu.active {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: all;
+    }
+
+    .navbar-menu li {
+        width: 100%;
+    }
+
+    .navbar-menu li a {
+        display: block;
+        padding: var(--spacing-sm) 0;
+    }
+}

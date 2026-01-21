@@ -1,0 +1,116 @@
+.contact-hero {
+    position: relative;
+    padding: var(--spacing-16) 0;
+    color: var(--color-white);
+    overflow: hidden;
+}
+
+.contact-hero__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-primary);
+}
+
+.contact-hero__content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.contact-hero h1 {
+    color: var(--color-white);
+    margin-bottom: var(--spacing-3);
+}
+
+.contact-hero p {
+    font-size: var(--font-size-xl);
+    color: var(--color-gray-100);
+}
+
+.contact-content {
+    background: var(--color-white);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-12);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+    .contact-grid {
+        grid-template-columns: 1fr 2fr;
+    }
+}
+
+.contact-info h2 {
+    margin-bottom: var(--spacing-6);
+}
+
+.contact-info__item {
+    display: flex;
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-6);
+    align-items: flex-start;
+}
+
+.contact-info__icon {
+    font-size: 32px;
+    flex-shrink: 0;
+}
+
+.contact-info__item h4 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-1);
+}
+
+.contact-info__item p {
+    color: var(--color-gray-600);
+}
+
+/* Form */
+.contact-form {
+    padding: var(--spacing-10);
+    border-radius: var(--radius-2xl);
+}
+
+.contact-form h3 {
+    margin-bottom: var(--spacing-6);
+}
+
+.form-group {
+    margin-bottom: var(--spacing-5);
+}
+
+.form-group label {
+    display: block;
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-2);
+    color: var(--color-gray-700);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: var(--spacing-3) var(--spacing-4);
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--radius-md);
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    transition: border-color var(--transition-fast);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-emerald-green);
+}
+
+.form-group textarea {
+    resize: vertical;
+}

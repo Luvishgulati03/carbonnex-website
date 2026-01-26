@@ -400,18 +400,7 @@ const ResourcesPage = () => {
                                         animate={{ opacity: 1, height: 'auto' }}
                                         onSubmit={handleAskSubmit}
                                     >
-                                        <select
-                                            value={newQuestion.category}
-                                            onChange={(e) => setNewQuestion({ ...newQuestion, category: e.target.value })}
-                                            className="form-select"
-                                            style={{ padding: '12px', borderRadius: '8px', border: '1px solid #e5e7eb', marginBottom: '10px' }}
-                                        >
-                                            <option value="">Select Category</option>
-                                            {dbCategories.map(cat => (
-                                                <option key={cat.id} value={cat.name}>{cat.name}</option>
-                                            ))}
-                                            <option value="other">Other</option>
-                                        </select>
+
 
                                         <input
                                             type="text"

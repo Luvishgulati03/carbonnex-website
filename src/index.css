@@ -280,6 +280,19 @@ a:hover {
   }
 }
 
+/* Wider containers for ultrawide screens */
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1440px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .container {
+    max-width: 1536px;
+  }
+}
+
 /* ===== Section Spacing ===== */
 .section {
   padding: var(--spacing-16) 0;

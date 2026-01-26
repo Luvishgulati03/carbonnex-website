@@ -1,0 +1,336 @@
+/* ============================================
+   WIDE SCREEN ENHANCEMENTS
+   Decorative side elements for ultrawide displays
+   ============================================ */
+
+/* ===== Section Wrapper with Side Decorations ===== */
+.section-with-decor {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Left side decoration */
+.section-decor-left,
+.section-decor-right {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 300px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.12;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.section-decor-left {
+    left: 0;
+    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 50%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 50%, transparent 100%);
+}
+
+.section-decor-right {
+    right: 0;
+    mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 50%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 50%, transparent 100%);
+}
+
+/* ===== Default ESG Icon Patterns (CSS-only fallback) ===== */
+.decor-pattern-leaves {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M30 5c-8 0-15 12-15 25s7 25 15 25 15-12 15-25S38 5 30 5z' fill='%2310B981' opacity='0.3'/%3E%3C/svg%3E");
+    background-size: 80px 80px;
+    background-repeat: repeat;
+}
+
+.decor-pattern-dots {
+    background-image: radial-gradient(circle, rgba(16, 185, 129, 0.3) 2px, transparent 2px);
+    background-size: 30px 30px;
+}
+
+.decor-pattern-grid {
+    background-image:
+        linear-gradient(rgba(16, 185, 129, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 185, 129, 0.1) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* ===== Image-based decorations (use your ESG photos) ===== */
+/* Place your images in /public/images/decor/ folder */
+.decor-image-nature {
+    background-image: url('/images/decor/nature-left.jpg');
+}
+
+.decor-image-solar {
+    background-image: url('/images/decor/solar-panels.jpg');
+}
+
+.decor-image-windmill {
+    background-image: url('/images/decor/wind-turbines.jpg');
+}
+
+.decor-image-forest {
+    background-image: url('/images/decor/forest.jpg');
+}
+
+.decor-image-earth {
+    background-image: url('/images/decor/earth.jpg');
+}
+
+/* ===== Opacity variations ===== */
+.decor-subtle {
+    opacity: 0.08;
+}
+
+.decor-light {
+    opacity: 0.12;
+}
+
+.decor-medium {
+    opacity: 0.20;
+}
+
+.decor-visible {
+    opacity: 0.30;
+}
+
+/* ===== Dark section decorations (inverted) ===== */
+.section-dark .section-decor-left,
+.section-dark .section-decor-right {
+    opacity: 0.08;
+    filter: brightness(0.3);
+}
+
+/* ===== Wide screen container adjustments ===== */
+@media (min-width: 1600px) {
+    .container {
+        max-width: 1440px;
+    }
+
+    .section-decor-left,
+    .section-decor-right {
+        width: 350px;
+    }
+}
+
+@media (min-width: 1920px) {
+    .container {
+        max-width: 1536px;
+    }
+
+    .section-decor-left,
+    .section-decor-right {
+        width: 400px;
+    }
+}
+
+@media (min-width: 2560px) {
+
+    .section-decor-left,
+    .section-decor-right {
+        width: 500px;
+    }
+}
+
+/* Hide decorations on smaller screens */
+@media (max-width: 1400px) {
+
+    .section-decor-left,
+    .section-decor-right {
+        display: none;
+    }
+}
+
+/* ===== Specific Section Enhancements ===== */
+
+/* ============================================
+   UPDATED DECORATIONS - High Visibility
+   ============================================ */
+
+/* ============================================
+   UPDATED DECORATIONS - Full Width Backgrounds
+   ============================================ */
+
+/* Ensure content sits on top of the background */
+.esg-intro .container,
+.process .container,
+.infographic .container,
+.frameworks .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Common styles for the full background */
+.esg-intro::before,
+.process::before,
+.infographic::before,
+.frameworks::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+
+    /* Background Image */
+    background-image: url('/images/decor/esg-city-globe.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    /* Opacity & Blending for Readability */
+    opacity: 0.15;
+    /* Low opacity to ensure text is readable */
+    mix-blend-mode: multiply;
+    /* Blends with the background color */
+}
+
+/* Add a white overlay to further wash it out if needed (optional, using ::after) */
+.esg-intro::after,
+.process::after,
+.infographic::after,
+.frameworks::after {
+    display: none;
+    /* Disable the second element we used to use */
+}
+
+/* Specific Adjustments per section */
+.esg-intro::before {
+    opacity: 0.12;
+}
+
+
+/* Process keeps the global emissions background */
+.process::before {
+    background-image: url('/images/decor/global-emissions-bg.png');
+    opacity: 0.15;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.infographic::before {
+    /* Infographic now has a green theme in HomePage.css */
+    /* We can either hide this overlay or use a subtle pattern/texture */
+    display: none;
+}
+
+.frameworks::before {
+    opacity: 0.12;
+}
+
+/* About Mission Section */
+.about-mission::before,
+.about-mission::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 200px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cpath d='M30 5 L55 30 L30 55 L5 30 Z' fill='none' stroke='%23059669' stroke-width='1'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 80px 80px;
+}
+
+.about-mission::before {
+    left: 0;
+    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, transparent 100%);
+}
+
+.about-mission::after {
+    right: 0;
+    mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, transparent 100%);
+}
+
+/* Why Choose Us Section (dark) */
+.about-why::before,
+.about-why::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 250px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.06;
+    background-image:
+        radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 50% 100%, rgba(16, 185, 129, 0.15) 0%, transparent 50%);
+}
+
+.about-why::before {
+    left: 0;
+}
+
+.about-why::after {
+    right: 0;
+}
+
+/* Service Pages - Feature Section */
+.service-section {
+    position: relative;
+}
+
+.service-section::before,
+.service-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 180px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.03;
+    background-image:
+        linear-gradient(135deg, rgba(16, 185, 129, 0.1) 25%, transparent 25%),
+        linear-gradient(225deg, rgba(16, 185, 129, 0.1) 25%, transparent 25%);
+    background-size: 40px 40px;
+}
+
+.service-section::before {
+    left: 0;
+}
+
+.service-section::after {
+    right: 0;
+}
+
+/* Resources Page Sections */
+.resources-section {
+    position: relative;
+}
+
+.resources-section::before,
+.resources-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 200px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'%3E%3Crect x='10' y='10' width='30' height='30' rx='3' fill='none' stroke='%23059669' stroke-width='1'/%3E%3Cline x1='15' y1='20' x2='35' y2='20' stroke='%23059669' stroke-width='1'/%3E%3Cline x1='15' y1='28' x2='30' y2='28' stroke='%23059669' stroke-width='1'/%3E%3Cline x1='15' y1='36' x2='25' y2='36' stroke='%23059669' stroke-width='1'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 70px 70px;
+}
+
+.resources-section::before {
+    left: 0;
+    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, transparent 100%);
+}
+
+.resources-section::after {
+    right: 0;
+    mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, transparent 100%);
+}

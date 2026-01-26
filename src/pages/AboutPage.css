@@ -105,8 +105,10 @@
 
 /* Mission & Vision */
 .about-mission {
+    position: relative;
     background: var(--color-gray-50);
     padding: var(--spacing-20) 0;
+    overflow: hidden;
 }
 
 .mission-grid {
@@ -244,8 +246,10 @@
 
 /* Why Choose Us */
 .about-why {
+    position: relative;
     background: var(--color-gray-900);
     padding: var(--spacing-20) 0;
+    overflow: hidden;
 }
 
 .about-why .section-header h2,

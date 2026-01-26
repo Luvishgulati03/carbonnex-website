@@ -25,7 +25,9 @@
 }
 
 .service-section {
+    position: relative;
     padding: 80px 0;
+    overflow: hidden;
 }
 
 .service-section h2 {

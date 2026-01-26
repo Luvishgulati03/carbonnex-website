@@ -65,27 +65,7 @@ app.post('/api/categories', async (req, res) => {
     }
 });
 
-// 1.5 Create Category
-app.post('/api/categories', async (req, res) => {
-    const { name, description } = req.body;
-    if (!name) return res.status(400).json({ error: "Category Name is required" });
 
-    // Simple slug generator
-    const slug = name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
-
-    try {
-        const [result] = await pool.query(
-            'INSERT INTO categories (name, slug, description) VALUES (?, ?, ?)',
-            [name, slug, description || '']
-        );
-        res.status(201).json({ message: "Category Created!", id: result.insertId, slug });
-    } catch (err) {
-        if (err.code === 'ER_DUP_ENTRY') {
-            return res.status(400).json({ error: "Category already exists" });
-        }
-        res.status(500).json({ error: err.message });
-    }
-});
 
 // 2. Get Questions (with User & Answer Count)
 app.get('/api/questions', async (req, res) => {

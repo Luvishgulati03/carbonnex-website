@@ -124,6 +124,26 @@ const HomePage = () => {
         { num: 6, title: t('home.process_steps.step6.title'), desc: t('home.process_steps.step6.desc') },
     ];
 
+    const [insights, setInsights] = useState([]);
+    const [loadingInsights, setLoadingInsights] = useState(true);
+
+    useEffect(() => {
+        const fetchInsights = async () => {
+            try {
+                const res = await fetch('http://localhost:5000/api/resources');
+                if (res.ok) {
+                    const data = await res.json();
+                    setInsights(data);
+                }
+            } catch (err) {
+                console.error("Failed to fetch insights", err);
+            } finally {
+                setLoadingInsights(false);
+            }
+        };
+        fetchInsights();
+    }, []);
+
     const regulations = [
         { region: t('home.regulations_list.eu.region'), regulation: 'CSRD', desc: t('home.regulations_list.eu.desc') },
         { region: t('home.regulations_list.us.region'), regulation: 'SEC Climate Rules', desc: t('home.regulations_list.us.desc') },
@@ -445,6 +465,41 @@ const HomePage = () => {
                                 <span className="framework-badge__full">{fw.fullName}</span>
                             </motion.div>
                         ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Latest Insights Section */}
+            <section className="latest-insights section">
+                <div className="container">
+                    <div className="section-header text-center">
+                        <span className="section-badge">Resources</span>
+                        <h2>Latest Insights</h2>
+                        <p>Stay updated with our latest articles, whitepapers, and guides.</p>
+                    </div>
+
+                    <div className="insights-grid">
+                        {loadingInsights ? (
+                            <p>Loading insights...</p>
+                        ) : insights.length > 0 ? (
+                            insights.slice(0, 3).map((insight) => (
+                                <Link to="/resources" key={insight.id} className="insight-card-link">
+                                    <motion.div
+                                        className="insight-card"
+                                        whileHover={{ y: -5 }}
+                                    >
+                                        <div className="insight-card__content">
+                                            <span className="insight-type">{insight.type}</span>
+                                            <h3>{insight.title}</h3>
+                                            <p>{insight.summary ? insight.summary.substring(0, 100) + '...' : ''}</p>
+                                            <span className="read-more">Read More →</span>
+                                        </div>
+                                    </motion.div>
+                                </Link>
+                            ))
+                        ) : (
+                            <p className="no-insights">No insights available at the moment.</p>
+                        )}
                     </div>
                 </div>
             </section>

@@ -352,8 +352,8 @@ const HomePage = () => {
                         <div className="infographic__visual">
                             <ResponsiveContainer width="100%" height={300}>
                                 <BarChart data={sectorData} layout="vertical">
-                                    <XAxis type="number" stroke="#6B7280" fontSize={12} />
-                                    <YAxis dataKey="sector" type="category" stroke="#6B7280" width={100} fontSize={12} />
+                                    <XAxis type="number" stroke="#FFFFFF" fontSize={12} tick={{ fill: '#FFFFFF' }} />
+                                    <YAxis dataKey="sector" type="category" stroke="#FFFFFF" width={100} fontSize={12} tick={{ fill: '#FFFFFF' }} />
                                     <Tooltip contentStyle={{ background: '#ffffff', border: '1px solid #e5e7eb', borderRadius: '8px', color: '#1f2937', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }} cursor={{ fill: 'transparent' }} itemStyle={{ color: '#1f2937' }} />
                                     <Bar dataKey="value" fill="#059669" radius={[0, 4, 4, 0]} />
                                 </BarChart>

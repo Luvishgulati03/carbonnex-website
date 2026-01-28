@@ -1,9 +1,104 @@
-/* Header Actions & Language Selector */
+/* Header Actions */
 .header__actions {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .header__actions {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+}
+
+/* ============================================
+   MOBILE ACTIONS & MENU STYLES
+============================================ */
+.header__mobile-actions {
+    padding: var(--spacing-4);
+    border-top: 1px solid var(--color-gray-100);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    background: var(--color-gray-50);
+}
+
+.mobile-lang-selector {
+    display: flex;
+    gap: var(--spacing-2);
+    padding-bottom: var(--spacing-2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.mobile-lang-btn {
+    padding: 6px 12px;
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-md);
+    background: white;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-gray-600);
+    cursor: pointer;
+    flex: 1;
+}
+
+.mobile-lang-btn.active {
+    background: #059669;
+    color: white;
+    border-color: #059669;
+}
+
+.mobile-user-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+}
+
+.mobile-user-profile {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: var(--spacing-3);
+    padding-bottom: var(--spacing-3);
+    margin-bottom: var(--spacing-2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
+
+.header__mobile-link.highlight {
+    color: #059669;
+    font-weight: 600;
+    background: white;
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-md);
+    justify-content: center;
+}
+
+.header__mobile-link.logout-btn {
+    color: #DC2626;
+    justify-content: center;
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-md);
+    background: white;
+}
+
+.mobile-login-btn {
+    width: 100%;
+    padding: 10px;
+    background: white;
+    border: 1px solid #059669;
+    color: #059669;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.mobile-login-btn:hover {
+    background: #059669;
+    color: white;
+}
+
+/* Rest of existing styles... */
+
 
 .language-selector {
     position: relative;
@@ -344,7 +439,10 @@
     background: var(--color-white);
     border-top: 1px solid var(--color-gray-100);
     overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.2);
+    z-index: 99999;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 @media (min-width: 1024px) {

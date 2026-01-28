@@ -330,3 +330,81 @@
         flex-direction: column;
     }
 }
+
+/* Admin Tabs */
+.admin-tabs {
+    display: flex;
+    gap: var(--spacing-4);
+    margin-top: var(--spacing-6);
+    border-bottom: 2px solid var(--color-gray-200);
+}
+
+.admin-tab-btn {
+    background: none;
+    border: none;
+    padding: var(--spacing-3) var(--spacing-6);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--color-gray-500);
+    cursor: pointer;
+    position: relative;
+    top: 2px;
+}
+
+.admin-tab-btn.active {
+    color: #0D5C3D;
+    border-bottom: 2px solid #0D5C3D;
+}
+
+/* Resource Form */
+.resource-form {
+    margin-bottom: var(--spacing-8);
+    background: var(--color-gray-50);
+    padding: var(--spacing-6);
+    border-radius: var(--radius-lg);
+}
+
+.resource-form h3 {
+    margin-bottom: var(--spacing-4);
+    font-size: 1.1rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-4);
+}
+
+.resource-form input,
+.resource-form select,
+.resource-form textarea {
+    padding: var(--spacing-3);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-md);
+    width: 100%;
+}
+
+.submit-resource-btn {
+    background: #0D5C3D;
+    color: white;
+    padding: var(--spacing-3) var(--spacing-6);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    margin-top: var(--spacing-2);
+}
+
+.submit-resource-btn:hover {
+    background: #047857;
+}
+
+.resource-badge {
+    text-transform: uppercase;
+    font-size: 10px;
+    padding: 2px 6px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    font-weight: bold;
+}

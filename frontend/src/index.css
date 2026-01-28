@@ -192,8 +192,10 @@ h6 {
 }
 
 h1 {
-  font-size: var(--font-size-5xl);
+  font-size: clamp(2rem, 5vw, 3.75rem);
   font-weight: var(--font-weight-extrabold);
+  line-height: 1.1;
+  word-wrap: break-word;
 }
 
 h2 {

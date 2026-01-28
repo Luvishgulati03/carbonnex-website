@@ -356,6 +356,48 @@ const Header = () => {
                                         </Link>
                                     )
                                 ))}
+                                <div className="header__mobile-actions">
+                                    {/* Mobile Language Selector */}
+                                    <div className="mobile-lang-selector">
+                                        {languages.map(lang => (
+                                            <button
+                                                key={lang.code}
+                                                className={`mobile-lang-btn ${i18n.language === lang.code ? 'active' : ''}`}
+                                                onClick={() => changeLanguage(lang.code)}
+                                            >
+                                                {lang.label}
+                                            </button>
+                                        ))}
+                                    </div>
+
+                                    {/* Mobile User/Login */}
+                                    {isLoggedIn ? (
+                                        <div className="mobile-user-info">
+                                            <div className="mobile-user-profile">
+                                                <span className="user-avatar small">
+                                                    {user?.name?.charAt(0).toUpperCase() || 'U'}
+                                                </span>
+                                                <span className="user-name">{user?.name}</span>
+                                            </div>
+                                            <Link to="/resources#community-faq" className="header__mobile-link highlight">
+                                                My FAQ
+                                            </Link>
+                                            {isAdmin && (
+                                                <Link to="/admin/dashboard" className="header__mobile-link highlight">
+                                                    Dashboard
+                                                </Link>
+                                            )}
+                                            <button className="header__mobile-link logout-btn" onClick={() => logout()}>
+                                                Logout
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <button className="mobile-login-btn" onClick={() => setShowLoginModal(true)}>
+                                            Login
+                                        </button>
+                                    )}
+                                </div>
+
                                 <div className="header__mobile-cta">
                                     <CTAButton href="/contact" size="large">{t('nav.getStarted')}</CTAButton>
                                 </div>

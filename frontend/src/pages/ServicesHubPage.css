@@ -124,14 +124,16 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
-    background: #F3F4F6;
-    color: #6B7280;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05));
+    color: #F59E0B;
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
-    padding: 4px 8px;
-    border-radius: 4px;
-    border: 1px solid #E5E7EB;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    display: flex;
+    align-items: center;
 }
 
 .service-link-muted {
@@ -146,3 +148,11 @@
     color: #4B5563;
     border-bottom-style: solid;
 }
+
+/* Locked card styles */
+.service-card-hub--locked:hover {
+    border-color: #F59E0B;
+    box-shadow: 0 10px 30px rgba(245, 158, 11, 0.1);
+}
+
+/* Note: Modal styles are shared from Header.css which is already loaded globally */

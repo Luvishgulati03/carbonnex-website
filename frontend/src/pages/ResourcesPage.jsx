@@ -41,15 +41,16 @@ const ResourcesPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [qRes, cRes, aRes] = await Promise.all([
+                const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
+                const [qRes, cRes, rRes] = await Promise.all([
                     fetch('http://localhost:5000/api/questions'),
                     fetch('http://localhost:5000/api/categories'),
-                    fetch('http://localhost:5000/api/articles')
+                    fetch('http://localhost:5000/api/resources', { headers })
                 ]);
 
                 const questions = await qRes.json();
                 const categories = await cRes.json();
-                const articles = await aRes.json();
+                const resourcesData = await rRes.json();
 
                 // Format questions
                 const formattedQuestions = questions.map(q => ({
@@ -59,25 +60,41 @@ const ResourcesPage = () => {
                     answers: []
                 }));
 
-                // Format articles for carousel (Removed Date as per request)
-                const formattedArticles = articles.map(a => ({
-                    id: a.id,
-                    title: a.title,
-                    summary: a.summary,
-                    link: a.source_url,
-                    image: a.image_url || "/images/news/news-1.jpg"
+                // Format resources
+                const formattedResources = resourcesData.map(r => ({
+                    id: r.id,
+                    title: r.title,
+                    description: r.summary,
+                    category: r.category_slug,
+                    topics: [r.type.toUpperCase(), r.access_level],
+                    readTime: '5 min', // Placeholder
+                    link: r.source_url,
+                    file_path: r.file_path,
+                    type: r.type,
+                    access_level: r.access_level
                 }));
 
                 setCommunityQuestions(formattedQuestions);
                 setDbCategories(categories);
-                setNewsItems(formattedArticles);
+                // setResources(formattedResources); // If we were using state, but current code uses filteredResources derived from static
+                // We need to override static resources with DB resources
+                // But the current code logic (Line 278) uses 'resources' from Translation. 
+                // I will store DB resources in a state and use that.
+                startResources(formattedResources);
 
             } catch (err) {
                 console.error("Failed to fetch data:", err);
             }
         };
         fetchData();
-    }, []);
+    }, [token]);
+
+    // New State for Resources (replacing static)
+    const [dbResources, setDbResources] = useState([]);
+
+    const startResources = (data) => {
+        setDbResources(data);
+    };
 
     // Handle hash scrolling
     useEffect(() => {
@@ -275,9 +292,13 @@ const ResourcesPage = () => {
         setCurrentSlide((prev) => (prev - 1 + newsItems.length) % newsItems.length);
     };
 
+    // Use DB resources if available, fallback to static (or mix?)
+    // User wants DB resources.
+    const displayResources = dbResources.length > 0 ? dbResources : resources;
+
     const filteredResources = activeCategory === 'all'
-        ? resources
-        : resources.filter(r => r.category === activeCategory);
+        ? displayResources
+        : displayResources.filter(r => r.category === activeCategory);
 
     return (
         <div className="resourcespage">
@@ -300,7 +321,7 @@ const ResourcesPage = () => {
             {/* News & Insights Carousel */}
             <section className="news-carousel section">
                 <div className="container">
-                    <div className="section-header">
+                    <div className="section-header" style={{ textAlign: 'center', marginBottom: 'var(--spacing-8)' }}>
                         <h2>Trending News & Insights</h2>
                     </div>
 
@@ -381,10 +402,19 @@ const ResourcesPage = () => {
                                     ))}
                                 </div>
                                 <div className="resource-card__footer">
-                                    <span className="resource-card__time">⏱️ {resource.readTime}</span>
-                                    <a href={resource.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-                                        <CTAButton variant="secondary" size="small" style={{ pointerEvents: 'none' }}>{t('resources.accessBtn')}</CTAButton>
-                                    </a>
+                                    <span className="resource-card__time">
+                                        {resource.type === 'whitepaper' ? '📄 Whitepaper' : '⏱️ 5 min read'}
+                                    </span>
+
+                                    {resource.file_path ? (
+                                        <a href={`http://localhost:5000${resource.file_path}`} download target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                                            <CTAButton variant="primary" size="small">Download PDF</CTAButton>
+                                        </a>
+                                    ) : (
+                                        <a href={resource.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                                            <CTAButton variant="secondary" size="small">View Resource</CTAButton>
+                                        </a>
+                                    )}
                                 </div>
                             </motion.div>
                         ))}

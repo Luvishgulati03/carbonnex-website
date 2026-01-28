@@ -6,6 +6,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -14,6 +17,23 @@ const JWT_SECRET = process.env.JWT_SECRET || 'default_secret_change_in_productio
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Multer Storage
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        const uploadDir = path.join(__dirname, 'uploads');
+        if (!fs.existsSync(uploadDir)) {
+            fs.mkdirSync(uploadDir, { recursive: true });
+        }
+        cb(null, uploadDir);
+    },
+    filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, uniqueSuffix + '-' + file.originalname.replace(/ /g, '_'));
+    }
+});
+const upload = multer({ storage });
 
 // Database Connection
 const pool = mysql.createPool({
@@ -721,6 +741,104 @@ app.post('/api/admin/users/:id/ban', requireAdmin, async (req, res) => {
 
         await pool.query('UPDATE users SET is_banned = ? WHERE id = ?', [ban ? 1 : 0, id]);
         res.json({ message: ban ? 'User banned' : 'User unbanned' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// ================= RESOURCES (Phase 9) =================
+
+// Get Resources (Public or Registered)
+app.get('/api/resources', optionalAuth, async (req, res) => {
+    const { type, category } = req.query;
+
+    // Determine access level based on auth
+    const userRole = req.user ? req.user.role : 'guest';
+    const isRegistered = !!req.user;
+
+    try {
+        let query = 'SELECT * FROM articles WHERE 1=1';
+        const params = [];
+
+        // Access Level Filter
+        if (!isRegistered) {
+            query += ' AND access_level = "public"';
+        }
+
+        // Type Filter
+        if (type) {
+            query += ' AND type = ?';
+            params.push(type);
+        }
+
+        // Category Filter
+        if (category) {
+            query += ' AND category_slug = ?';
+            params.push(category);
+        }
+
+        query += ' ORDER BY created_at DESC';
+
+        const [rows] = await pool.query(query, params);
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Upload Resource (Admin Only)
+app.post('/api/resources', requireAdmin, upload.single('file'), async (req, res) => {
+    const { title, summary, type, access_level, category_slug, source_url } = req.body;
+
+    // File path relative to server root
+    const filePath = req.file ? `/uploads/${req.file.filename}` : null;
+
+    if (!title || !type) {
+        return res.status(400).json({ error: 'Title and Type are required' });
+    }
+
+    try {
+        const [result] = await pool.query(
+            'INSERT INTO articles (title, summary, type, access_level, category_slug, source_url, file_path) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [title, summary || '', type, access_level || 'public', category_slug || 'general', source_url || '', filePath]
+        );
+
+        res.status(201).json({
+            message: 'Resource created',
+            id: result.insertId,
+            file_path: filePath
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Delete Resource (Admin Only)
+app.delete('/api/resources/:id', requireAdmin, async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        // Get file path to delete file
+        const [rows] = await pool.query('SELECT file_path FROM articles WHERE id = ?', [id]);
+
+        if (rows.length === 0) {
+            return res.status(404).json({ error: 'Resource not found' });
+        }
+
+        const filePath = rows[0].file_path;
+
+        // Delete from DB
+        await pool.query('DELETE FROM articles WHERE id = ?', [id]);
+
+        // Delete file if exists
+        if (filePath) {
+            const absolutePath = path.join(__dirname, filePath);
+            if (fs.existsSync(absolutePath)) {
+                fs.unlinkSync(absolutePath);
+            }
+        }
+
+        res.json({ message: 'Resource deleted' });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

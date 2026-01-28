@@ -13,6 +13,14 @@ const AdminDashboard = () => {
     const [error, setError] = useState('');
     const [actionLoading, setActionLoading] = useState(false);
 
+    // Resource Management State
+    const [activeTab, setActiveTab] = useState('users'); // 'users' or 'resources'
+    const [resources, setResources] = useState([]);
+    const [resourceForm, setResourceForm] = useState({
+        title: '', summary: '', type: 'article', category: 'general', access_level: 'public', source_url: ''
+    });
+    const [resourceFile, setResourceFile] = useState(null);
+
     const { user, token, isAdmin, isLoggedIn } = useAuth();
     const navigate = useNavigate();
 
@@ -28,7 +36,20 @@ const AdminDashboard = () => {
         }
 
         fetchUsers();
+        fetchResources();
     }, [isLoggedIn, isAdmin, navigate]);
+
+    const fetchResources = async () => {
+        try {
+            const res = await fetch(`${API_URL}/resources`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const data = await res.json();
+            setResources(data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
     const fetchUsers = async () => {
         try {
@@ -91,6 +112,60 @@ const AdminDashboard = () => {
         }
     };
 
+    const handleResourceSubmit = async (e) => {
+        e.preventDefault();
+        setActionLoading(true);
+
+        const formData = new FormData();
+        formData.append('title', resourceForm.title);
+        formData.append('summary', resourceForm.summary);
+        formData.append('type', resourceForm.type);
+        formData.append('category_slug', resourceForm.category);
+        formData.append('access_level', resourceForm.access_level);
+        formData.append('source_url', resourceForm.source_url);
+        if (resourceFile) {
+            formData.append('file', resourceFile);
+        }
+
+        try {
+            const res = await fetch(`${API_URL}/resources`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                body: formData
+            });
+
+            if (!res.ok) throw new Error('Failed to upload resource');
+
+            setResourceForm({ title: '', summary: '', type: 'article', category: 'general', access_level: 'public', source_url: '' });
+            setResourceFile(null);
+            fetchResources();
+            alert('Resource added successfully!');
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setActionLoading(false);
+        }
+    };
+
+    const handleDeleteResource = async (id) => {
+        if (!window.confirm('Delete this resource?')) return;
+        setActionLoading(true);
+        try {
+            const res = await fetch(`${API_URL}/resources/${id}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (!res.ok) throw new Error('Failed to delete');
+            fetchResources();
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setActionLoading(false);
+        }
+    };
+
     if (!isAdmin) {
         return null;
     }
@@ -105,72 +180,175 @@ const AdminDashboard = () => {
                 <header className="admin-dashboard__header">
                     <h1>Admin Dashboard</h1>
                     <p>Manage users and community Q&A activity</p>
+                    <h1>Admin Dashboard</h1>
+                    <div className="admin-tabs">
+                        <button
+                            className={`admin-tab-btn ${activeTab === 'users' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('users')}
+                        >
+                            👥 Users
+                        </button>
+                        <button
+                            className={`admin-tab-btn ${activeTab === 'resources' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('resources')}
+                        >
+                            📚 Resources
+                        </button>
+                    </div>
                 </header>
 
                 {error && <div className="admin-error">{error}</div>}
 
                 <div className="admin-dashboard__content">
                     {/* Users Table */}
-                    <section className="admin-section">
-                        <h2>👥 All Users</h2>
+                    {activeTab === 'users' && (
+                        <section className="admin-section">
+                            <h2>👥 All Users</h2>
 
-                        {loading ? (
-                            <div className="admin-loading">Loading users...</div>
-                        ) : (
+                            {loading ? (
+                                <div className="admin-loading">Loading users...</div>
+                            ) : (
+                                <div className="admin-table-wrapper">
+                                    <table className="admin-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Role</th>
+                                                <th>Status</th>
+                                                <th>Questions</th>
+                                                <th>Answers</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {users.map(u => (
+                                                <tr key={u.id} className={u.is_banned ? 'banned' : ''}>
+                                                    <td>{u.name}</td>
+                                                    <td>{u.email}</td>
+                                                    <td>
+                                                        <span className={`role-badge ${u.role}`}>
+                                                            {u.role}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span className={`status-badge ${u.is_banned ? 'banned' : 'active'}`}>
+                                                            {u.is_banned ? 'Banned' : 'Active'}
+                                                        </span>
+                                                    </td>
+                                                    <td>{u.question_count}</td>
+                                                    <td>{u.answer_count}</td>
+                                                    <td className="actions-cell">
+                                                        <button
+                                                            className="action-btn view"
+                                                            onClick={() => fetchUserDetails(u.id)}
+                                                        >
+                                                            View
+                                                        </button>
+                                                        {u.role !== 'admin' && (
+                                                            <button
+                                                                className={`action-btn ${u.is_banned ? 'unban' : 'ban'}`}
+                                                                onClick={() => handleBanUser(u.id, !u.is_banned)}
+                                                                disabled={actionLoading}
+                                                            >
+                                                                {u.is_banned ? 'Unban' : 'Ban'}
+                                                            </button>
+                                                        )}
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            )}
+                        </section>
+                    )}
+
+                    {/* Resources Section */}
+                    {activeTab === 'resources' && (
+                        <section className="admin-section">
+                            <h2>📚 Manage Resources</h2>
+
+                            {/* Add Resource Form */}
+                            <form className="resource-form" onSubmit={handleResourceSubmit}>
+                                <h3>Add New Resource</h3>
+                                <div className="form-grid">
+                                    <input
+                                        type="text" placeholder="Title" required
+                                        value={resourceForm.title}
+                                        onChange={e => setResourceForm({ ...resourceForm, title: e.target.value })}
+                                    />
+                                    <select
+                                        value={resourceForm.type}
+                                        onChange={e => setResourceForm({ ...resourceForm, type: e.target.value })}
+                                    >
+                                        <option value="article">Article</option>
+                                        <option value="whitepaper">Whitepaper</option>
+                                        <option value="guide">Guide</option>
+                                        <option value="tool">Tool</option>
+                                        <option value="report">Report</option>
+                                    </select>
+                                    <select
+                                        value={resourceForm.access_level}
+                                        onChange={e => setResourceForm({ ...resourceForm, access_level: e.target.value })}
+                                    >
+                                        <option value="public">Public</option>
+                                        <option value="registered">Registered Only</option>
+                                    </select>
+                                    <input
+                                        type="text" placeholder="Source URL (Optional)"
+                                        value={resourceForm.source_url}
+                                        onChange={e => setResourceForm({ ...resourceForm, source_url: e.target.value })}
+                                    />
+                                    <input
+                                        type="file"
+                                        onChange={e => setResourceFile(e.target.files[0])}
+                                    />
+                                </div>
+                                <textarea
+                                    placeholder="Summary" rows="3"
+                                    value={resourceForm.summary}
+                                    onChange={e => setResourceForm({ ...resourceForm, summary: e.target.value })}
+                                />
+                                <button type="submit" className="submit-resource-btn" disabled={actionLoading}>
+                                    {actionLoading ? 'Uploading...' : 'Upload Resource'}
+                                </button>
+                            </form>
+
+                            {/* Resources Table */}
                             <div className="admin-table-wrapper">
                                 <table className="admin-table">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Role</th>
-                                            <th>Status</th>
-                                            <th>Questions</th>
-                                            <th>Answers</th>
+                                            <th>Title</th>
+                                            <th>Type</th>
+                                            <th>Access</th>
+                                            <th>File</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {users.map(u => (
-                                            <tr key={u.id} className={u.is_banned ? 'banned' : ''}>
-                                                <td>{u.name}</td>
-                                                <td>{u.email}</td>
+                                        {resources.map(r => (
+                                            <tr key={r.id}>
+                                                <td>{r.title}</td>
+                                                <td><span className="resource-badge">{r.type}</span></td>
+                                                <td>{r.access_level}</td>
+                                                <td>{r.file_path ? '✅ File' : '🔗 Link'}</td>
                                                 <td>
-                                                    <span className={`role-badge ${u.role}`}>
-                                                        {u.role}
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <span className={`status-badge ${u.is_banned ? 'banned' : 'active'}`}>
-                                                        {u.is_banned ? 'Banned' : 'Active'}
-                                                    </span>
-                                                </td>
-                                                <td>{u.question_count}</td>
-                                                <td>{u.answer_count}</td>
-                                                <td className="actions-cell">
                                                     <button
-                                                        className="action-btn view"
-                                                        onClick={() => fetchUserDetails(u.id)}
+                                                        className="action-btn ban"
+                                                        onClick={() => handleDeleteResource(r.id)}
                                                     >
-                                                        View
+                                                        Delete
                                                     </button>
-                                                    {u.role !== 'admin' && (
-                                                        <button
-                                                            className={`action-btn ${u.is_banned ? 'unban' : 'ban'}`}
-                                                            onClick={() => handleBanUser(u.id, !u.is_banned)}
-                                                            disabled={actionLoading}
-                                                        >
-                                                            {u.is_banned ? 'Unban' : 'Ban'}
-                                                        </button>
-                                                    )}
                                                 </td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
                             </div>
-                        )}
-                    </section>
+                        </section>
+                    )}
 
                     {/* User Details Modal */}
                     {selectedUser && (

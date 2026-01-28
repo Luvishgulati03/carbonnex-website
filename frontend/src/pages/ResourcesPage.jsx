@@ -76,11 +76,19 @@ const ResourcesPage = () => {
 
                 setCommunityQuestions(formattedQuestions);
                 setDbCategories(categories);
-                // setResources(formattedResources); // If we were using state, but current code uses filteredResources derived from static
-                // We need to override static resources with DB resources
-                // But the current code logic (Line 278) uses 'resources' from Translation. 
-                // I will store DB resources in a state and use that.
                 startResources(formattedResources);
+
+                // Populate News Items from Resources (Articles)
+                const news = formattedResources
+                    .filter(r => r.type === 'article' || r.type === 'news')
+                    .slice(0, 5) // Take top 5
+                    .map(r => ({
+                        id: r.id,
+                        title: r.title,
+                        summary: r.description, // mapped from summary in formattedResources
+                        link: r.link || '/resources'
+                    }));
+                setNewsItems(news);
 
             } catch (err) {
                 console.error("Failed to fetch data:", err);

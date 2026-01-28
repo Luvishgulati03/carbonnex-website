@@ -1,0 +1,332 @@
+/* Admin Dashboard */
+.admin-dashboard {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #F9FAFB 0%, #F3F4F6 100%);
+    padding: 100px var(--spacing-6) var(--spacing-12);
+}
+
+.admin-dashboard__container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.admin-dashboard__header {
+    margin-bottom: var(--spacing-8);
+}
+
+.admin-dashboard__header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0D5C3D;
+    margin-bottom: var(--spacing-2);
+}
+
+.admin-dashboard__header p {
+    color: var(--color-gray-600);
+    font-size: var(--font-size-lg);
+}
+
+.admin-error {
+    background: rgba(239, 68, 68, 0.1);
+    color: #DC2626;
+    padding: var(--spacing-4);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-6);
+}
+
+.admin-loading {
+    text-align: center;
+    padding: var(--spacing-8);
+    color: var(--color-gray-500);
+}
+
+/* Sections */
+.admin-section {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-6);
+    margin-bottom: var(--spacing-6);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.admin-section h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-gray-800);
+    margin-bottom: var(--spacing-5);
+}
+
+/* Table */
+.admin-table-wrapper {
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: var(--spacing-4);
+    text-align: left;
+    border-bottom: 1px solid var(--color-gray-100);
+}
+
+.admin-table th {
+    font-weight: 600;
+    color: var(--color-gray-600);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.admin-table td {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-700);
+}
+
+.admin-table tr.banned {
+    background: rgba(239, 68, 68, 0.05);
+}
+
+.admin-table tr:hover {
+    background: var(--color-gray-50);
+}
+
+/* Badges */
+.role-badge {
+    padding: 4px 8px;
+    border-radius: var(--radius-md);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.role-badge.admin {
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+    color: white;
+}
+
+.role-badge.user {
+    background: var(--color-gray-100);
+    color: var(--color-gray-600);
+}
+
+.status-badge {
+    padding: 4px 8px;
+    border-radius: var(--radius-md);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.status-badge.active {
+    background: rgba(16, 185, 129, 0.1);
+    color: #059669;
+}
+
+.status-badge.banned {
+    background: rgba(239, 68, 68, 0.1);
+    color: #DC2626;
+}
+
+/* Action Buttons */
+.actions-cell {
+    display: flex;
+    gap: var(--spacing-2);
+}
+
+.action-btn {
+    padding: 6px 12px;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all var(--transition-fast);
+}
+
+.action-btn.view {
+    background: rgba(5, 150, 105, 0.1);
+    color: #059669;
+}
+
+.action-btn.view:hover {
+    background: #059669;
+    color: white;
+}
+
+.action-btn.ban {
+    background: rgba(239, 68, 68, 0.1);
+    color: #DC2626;
+}
+
+.action-btn.ban:hover {
+    background: #DC2626;
+    color: white;
+}
+
+.action-btn.unban {
+    background: rgba(16, 185, 129, 0.1);
+    color: #059669;
+}
+
+.action-btn.unban:hover {
+    background: #059669;
+    color: white;
+}
+
+.action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* User Details Modal */
+.user-details-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: var(--spacing-4);
+}
+
+.user-details-modal {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-8);
+    max-width: 600px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: var(--spacing-4);
+    right: var(--spacing-4);
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--color-gray-400);
+}
+
+.close-btn:hover {
+    color: var(--color-gray-600);
+}
+
+.user-details-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-6);
+    padding-bottom: var(--spacing-6);
+    border-bottom: 1px solid var(--color-gray-100);
+}
+
+.user-avatar-large {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #059669, #10B981);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.user-details-header h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.user-details-header p {
+    color: var(--color-gray-500);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-2);
+}
+
+.user-badges {
+    display: flex;
+    gap: var(--spacing-2);
+}
+
+/* Activity Sections */
+.user-activity {
+    display: grid;
+    gap: var(--spacing-6);
+}
+
+.activity-section h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-4);
+    color: var(--color-gray-800);
+}
+
+.activity-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.activity-section li {
+    padding: var(--spacing-3);
+    background: var(--color-gray-50);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-2);
+}
+
+.activity-section li strong {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-800);
+    margin-bottom: 4px;
+}
+
+.activity-section .date {
+    font-size: var(--font-size-xs);
+    color: var(--color-gray-500);
+}
+
+.activity-section .answer-preview {
+    font-size: var(--font-size-xs);
+    color: var(--color-gray-600);
+    margin: 4px 0;
+}
+
+.no-activity {
+    color: var(--color-gray-500);
+    font-style: italic;
+    font-size: var(--font-size-sm);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .admin-dashboard {
+        padding: 80px var(--spacing-4) var(--spacing-8);
+    }
+
+    .admin-dashboard__header h1 {
+        font-size: 1.75rem;
+    }
+
+    .admin-table th,
+    .admin-table td {
+        padding: var(--spacing-2);
+    }
+
+    .actions-cell {
+        flex-direction: column;
+    }
+}

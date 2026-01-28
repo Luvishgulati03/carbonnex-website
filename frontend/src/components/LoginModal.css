@@ -1,0 +1,214 @@
+/* Login Modal Overlay */
+.login-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: var(--spacing-4);
+}
+
+/* Login Modal Box */
+.login-modal {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-8);
+    max-width: 420px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.login-modal__close {
+    position: absolute;
+    top: var(--spacing-4);
+    right: var(--spacing-4);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--color-gray-400);
+    padding: var(--spacing-1);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.login-modal__close:hover {
+    color: var(--color-gray-600);
+    background: var(--color-gray-100);
+}
+
+/* Header */
+.login-modal__header {
+    text-align: center;
+    margin-bottom: var(--spacing-6);
+}
+
+.login-modal__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2);
+}
+
+.logo-icon {
+    font-size: 2rem;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0D5C3D;
+}
+
+/* Tabs */
+.login-modal__tabs {
+    display: flex;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-6);
+    background: var(--color-gray-100);
+    padding: 4px;
+    border-radius: var(--radius-lg);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: var(--spacing-3);
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-gray-600);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.tab-btn:hover {
+    color: var(--color-gray-800);
+}
+
+.tab-btn.active {
+    background: white;
+    color: #059669;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Form */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-1);
+}
+
+.form-group label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-gray-700);
+}
+
+.form-group input {
+    padding: var(--spacing-3) var(--spacing-4);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-base);
+    transition: all var(--transition-fast);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #059669;
+    box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+}
+
+/* Messages */
+.login-error {
+    background: rgba(239, 68, 68, 0.1);
+    color: #DC2626;
+    padding: var(--spacing-3);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    text-align: center;
+    margin-bottom: var(--spacing-2);
+}
+
+.login-success {
+    background: rgba(16, 185, 129, 0.1);
+    color: #059669;
+    padding: var(--spacing-3);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    text-align: center;
+    margin-bottom: var(--spacing-2);
+}
+
+/* Buttons */
+.submit-btn {
+    padding: var(--spacing-3) var(--spacing-5);
+    background: linear-gradient(135deg, #059669, #10B981);
+    color: white;
+    border: none;
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    margin-top: var(--spacing-2);
+}
+
+.submit-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.35);
+}
+
+.submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.forgot-link {
+    background: none;
+    border: none;
+    color: #059669;
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    text-align: right;
+    padding: 0;
+    margin-top: calc(-1 * var(--spacing-2));
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+.back-link {
+    background: none;
+    border: none;
+    color: var(--color-gray-600);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    text-align: center;
+    padding: 0;
+}
+
+.back-link:hover {
+    color: #059669;
+}
+
+.forgot-desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+    text-align: center;
+    margin-bottom: var(--spacing-2);
+}

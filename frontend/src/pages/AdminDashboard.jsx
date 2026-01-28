@@ -314,6 +314,7 @@ const AdminDashboard = () => {
                                         onChange={e => setResourceForm({ ...resourceForm, type: e.target.value })}
                                     >
                                         <option value="article">Article</option>
+                                        <option value="news">News</option>
                                         <option value="whitepaper">Whitepaper</option>
                                         <option value="guide">Guide</option>
                                         <option value="tool">Tool</option>

@@ -20,6 +20,7 @@ const AdminDashboard = () => {
         title: '', summary: '', type: 'article', category: 'general', access_level: 'public', source_url: ''
     });
     const [resourceFile, setResourceFile] = useState(null);
+    const [editingId, setEditingId] = useState(null);
 
     const { user, token, isAdmin, isLoggedIn } = useAuth();
     const navigate = useNavigate();
@@ -127,26 +128,49 @@ const AdminDashboard = () => {
             formData.append('file', resourceFile);
         }
 
+        const url = editingId ? `${API_URL}/resources/${editingId}` : `${API_URL}/resources`;
+        const method = editingId ? 'PUT' : 'POST';
+
         try {
-            const res = await fetch(`${API_URL}/resources`, {
-                method: 'POST',
+            const res = await fetch(url, {
+                method: method,
                 headers: {
                     'Authorization': `Bearer ${token}`
                 },
                 body: formData
             });
 
-            if (!res.ok) throw new Error('Failed to upload resource');
+            if (!res.ok) throw new Error(editingId ? 'Failed to update resource' : 'Failed to upload resource');
 
             setResourceForm({ title: '', summary: '', type: 'article', category: 'general', access_level: 'public', source_url: '' });
             setResourceFile(null);
+            setEditingId(null);
             fetchResources();
-            alert('Resource added successfully!');
+            alert(editingId ? 'Resource updated successfully!' : 'Resource added successfully!');
         } catch (err) {
             setError(err.message);
         } finally {
             setActionLoading(false);
         }
+    };
+
+    const handleEditResource = (resource) => {
+        setEditingId(resource.id);
+        setResourceForm({
+            title: resource.title,
+            summary: resource.summary || '',
+            type: resource.type,
+            category: resource.category_slug || 'general',
+            access_level: resource.access_level,
+            source_url: resource.source_url || ''
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const handleCancelEdit = () => {
+        setEditingId(null);
+        setResourceForm({ title: '', summary: '', type: 'article', category: 'general', access_level: 'public', source_url: '' });
+        setResourceFile(null);
     };
 
     const handleDeleteResource = async (id) => {
@@ -269,9 +293,16 @@ const AdminDashboard = () => {
                         <section className="admin-section">
                             <h2>📚 Manage Resources</h2>
 
-                            {/* Add Resource Form */}
+                            {/* Add/Edit Resource Form */}
                             <form className="resource-form" onSubmit={handleResourceSubmit}>
-                                <h3>Add New Resource</h3>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                                    <h3>{editingId ? 'Edit Resource' : 'Add New Resource'}</h3>
+                                    {editingId && (
+                                        <button type="button" onClick={handleCancelEdit} style={{ background: 'none', border: 'none', color: '#666', cursor: 'pointer', fontSize: '0.9rem' }}>
+                                            Cancel Edit
+                                        </button>
+                                    )}
+                                </div>
                                 <div className="form-grid">
                                     <input
                                         type="text" placeholder="Title" required
@@ -300,10 +331,13 @@ const AdminDashboard = () => {
                                         value={resourceForm.source_url}
                                         onChange={e => setResourceForm({ ...resourceForm, source_url: e.target.value })}
                                     />
-                                    <input
-                                        type="file"
-                                        onChange={e => setResourceFile(e.target.files[0])}
-                                    />
+                                    <div className="file-input-wrapper">
+                                        <input
+                                            type="file"
+                                            onChange={e => setResourceFile(e.target.files[0])}
+                                        />
+                                        {editingId && <small style={{ display: 'block', marginTop: '4px', color: '#666' }}>Leave empty to keep existing file</small>}
+                                    </div>
                                 </div>
                                 <textarea
                                     placeholder="Summary" rows="3"
@@ -311,7 +345,7 @@ const AdminDashboard = () => {
                                     onChange={e => setResourceForm({ ...resourceForm, summary: e.target.value })}
                                 />
                                 <button type="submit" className="submit-resource-btn" disabled={actionLoading}>
-                                    {actionLoading ? 'Uploading...' : 'Upload Resource'}
+                                    {actionLoading ? 'Saving...' : (editingId ? 'Update Resource' : 'Upload Resource')}
                                 </button>
                             </form>
 
@@ -334,7 +368,13 @@ const AdminDashboard = () => {
                                                 <td><span className="resource-badge">{r.type}</span></td>
                                                 <td>{r.access_level}</td>
                                                 <td>{r.file_path ? '✅ File' : '🔗 Link'}</td>
-                                                <td>
+                                                <td className="actions-cell">
+                                                    <button
+                                                        className="action-btn view"
+                                                        onClick={() => handleEditResource(r)}
+                                                    >
+                                                        Edit
+                                                    </button>
                                                     <button
                                                         className="action-btn ban"
                                                         onClick={() => handleDeleteResource(r.id)}

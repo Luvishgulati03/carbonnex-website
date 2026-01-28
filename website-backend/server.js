@@ -813,6 +813,44 @@ app.post('/api/resources', requireAdmin, upload.single('file'), async (req, res)
     }
 });
 
+// Update Resource (Admin Only)
+app.put('/api/resources/:id', requireAdmin, upload.single('file'), async (req, res) => {
+    const { id } = req.params;
+    const { title, summary, type, access_level, category_slug, source_url } = req.body;
+    let filePath = null;
+
+    if (req.file) {
+        filePath = `/uploads/${req.file.filename}`;
+    }
+
+    try {
+        // If updating file, delete old one first
+        if (filePath) {
+            const [oldRows] = await pool.query('SELECT file_path FROM articles WHERE id = ?', [id]);
+            if (oldRows.length > 0 && oldRows[0].file_path) {
+                const oldPath = path.join(__dirname, oldRows[0].file_path);
+                if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
+            }
+        }
+
+        let query = 'UPDATE articles SET title = ?, summary = ?, type = ?, access_level = ?, category_slug = ?, source_url = ?';
+        const params = [title, summary, type, access_level, category_slug || 'general', source_url];
+
+        if (filePath) {
+            query += ', file_path = ?';
+            params.push(filePath);
+        }
+
+        query += ' WHERE id = ?';
+        params.push(id);
+
+        await pool.query(query, params);
+        res.json({ message: 'Resource updated', file_path: filePath });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 // Delete Resource (Admin Only)
 app.delete('/api/resources/:id', requireAdmin, async (req, res) => {
     const { id } = req.params;

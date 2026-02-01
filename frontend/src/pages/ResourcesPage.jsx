@@ -70,7 +70,7 @@ const ResourcesPage = () => {
                     readTime: '5 min', // Placeholder
                     link: r.source_url,
                     file_path: r.file_path,
-                    type: r.type,
+                    type: r.type === 'report' ? 'guide' : (r.type === 'news' ? 'article' : r.type),
                     access_level: r.access_level
                 }));
 
@@ -306,7 +306,7 @@ const ResourcesPage = () => {
 
     const filteredResources = activeCategory === 'all'
         ? displayResources
-        : displayResources.filter(r => r.category === activeCategory);
+        : displayResources.filter(r => r.category === activeCategory || r.type === activeCategory);
 
     return (
         <div className="resourcespage">

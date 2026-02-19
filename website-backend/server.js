@@ -13,6 +13,7 @@ const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || 'default_secret_change_in_production';
+const ADMIN_SECRET = process.env.ADMIN_SECRET || 'carbonnex-admin-2024';
 
 // Middleware
 app.use(cors());
@@ -158,6 +159,47 @@ app.post('/api/auth/register', async (req, res) => {
             message: 'Registration successful',
             token,
             user: { id: result.insertId, email, name, role: 'user' }
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Register Admin (with secret key)
+app.post('/api/auth/register-admin', async (req, res) => {
+    const { email, name, password, adminSecret } = req.body;
+
+    if (!email || !name || !password || !adminSecret) {
+        return res.status(400).json({ error: 'Email, name, password, and admin secret are required' });
+    }
+
+    if (adminSecret !== ADMIN_SECRET) {
+        return res.status(403).json({ error: 'Invalid admin secret key' });
+    }
+
+    if (password.length < 6) {
+        return res.status(400).json({ error: 'Password must be at least 6 characters' });
+    }
+
+    try {
+        const [existing] = await pool.query('SELECT id FROM users WHERE email = ?', [email]);
+        if (existing.length > 0) {
+            return res.status(400).json({ error: 'Email already registered' });
+        }
+
+        const passwordHash = await bcrypt.hash(password, 10);
+
+        const [result] = await pool.query(
+            'INSERT INTO users (email, name, password_hash, role) VALUES (?, ?, ?, ?)',
+            [email, name, passwordHash, 'admin']
+        );
+
+        const token = jwt.sign({ userId: result.insertId, role: 'admin' }, JWT_SECRET, { expiresIn: '7d' });
+
+        res.status(201).json({
+            message: 'Admin registration successful',
+            token,
+            user: { id: result.insertId, email, name, role: 'admin' }
         });
     } catch (err) {
         res.status(500).json({ error: err.message });

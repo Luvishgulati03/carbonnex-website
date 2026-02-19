@@ -1,0 +1,125 @@
+.net-zero-countdown-container {
+    position: absolute;
+    top: 8%;
+    /* Placed inside the globe, near the top edge */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    pointer-events: auto;
+    /* Allow interaction if needed, though mostly visual */
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.net-zero-countdown {
+    background: rgba(2, 44, 34, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-4) var(--spacing-6);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 0 20px rgba(16, 185, 129, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 380px;
+}
+
+.countdown-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-3);
+}
+
+.scrolling-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #10B981;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #10B981;
+    animation: timer-blink 1.5s infinite ease-in-out;
+}
+
+.countdown-title {
+    color: var(--color-gray-100);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.countdown-timer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.time-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 60px;
+}
+
+.time-value {
+    font-family: 'Courier New', Courier, monospace;
+    /* Digital look */
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #10B981;
+    text-shadow: 0 0 10px rgba(16, 185, 129, 0.6),
+        0 0 20px rgba(16, 185, 129, 0.3);
+}
+
+.time-label {
+    font-size: 0.70rem;
+    color: var(--color-gray-400);
+    margin-top: var(--spacing-1);
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.time-separator {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: rgba(16, 185, 129, 0.5);
+    margin: 0 var(--spacing-1);
+    transform: translateY(-8px);
+    /* slightly off-center to align with digits */
+    animation: timer-blink 1s infinite alternate;
+}
+
+@keyframes timer-blink {
+    0% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .net-zero-countdown-container {
+        top: 5%;
+    }
+
+    .net-zero-countdown {
+        min-width: 320px;
+        padding: var(--spacing-3) var(--spacing-4);
+    }
+
+    .time-value {
+        font-size: 1.8rem;
+    }
+
+    .time-label {
+        font-size: 0.65rem;
+    }
+}

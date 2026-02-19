@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import './AnimatedBackground.css';
+import NetZeroCountdown from './NetZeroCountdown';
 
 const AnimatedBackground = ({ variant = 'particles', intensity = 'medium' }) => {
     const containerRef = useRef(null);
@@ -37,17 +38,27 @@ const AnimatedBackground = ({ variant = 'particles', intensity = 'medium' }) => 
     const particleCount = intensity === 'high' ? 30 : intensity === 'medium' ? 20 : 10;
     const leafCount = intensity === 'high' ? 15 : intensity === 'medium' ? 10 : 5;
 
+    const particleData = useMemo(() => {
+        return Array.from({ length: particleCount }).map(() => ({
+            left: Math.random() * 100,
+            top: Math.random() * 100,
+            delay: Math.random() * 5,
+            duration: 3 + Math.random() * 4,
+            opacity: 0.3 + Math.random() * 0.4
+        }));
+    }, [particleCount]);
+
     const renderParticles = () => {
-        return Array.from({ length: particleCount }).map((_, i) => (
+        return particleData.map((p, i) => (
             <div
                 key={i}
                 className="particle"
                 style={{
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
-                    animationDelay: `${Math.random() * 5}s`,
-                    animationDuration: `${3 + Math.random() * 4}s`,
-                    opacity: 0.3 + Math.random() * 0.4,
+                    left: `${p.left}%`,
+                    top: `${p.top}%`,
+                    animationDelay: `${p.delay}s`,
+                    animationDuration: `${p.duration}s`,
+                    opacity: p.opacity,
                     transform: isHovering && variant !== 'nature'
                         ? `translate(${(mousePos.x - 0.5) * 30}px, ${(mousePos.y - 0.5) * 30}px)`
                         : 'none',
@@ -56,58 +67,91 @@ const AnimatedBackground = ({ variant = 'particles', intensity = 'medium' }) => 
         ));
     };
 
-    const renderLeaves = () => {
+    const leafData = useMemo(() => {
         const leafEmojis = ['🌿', '🍃', '🌱', '☘️'];
-        return Array.from({ length: leafCount }).map((_, i) => (
+        return Array.from({ length: leafCount }).map((_, i) => ({
+            emoji: leafEmojis[i % leafEmojis.length],
+            left: Math.random() * 100,
+            delay: Math.random() * 8,
+            duration: 8 + Math.random() * 6,
+            fontSize: 16 + Math.random() * 16,
+            opacity: 0.4 + Math.random() * 0.3
+        }));
+    }, [leafCount]);
+
+    const renderLeaves = () => {
+        return leafData.map((l, i) => (
             <div
                 key={i}
                 className="floating-leaf"
                 style={{
-                    left: `${Math.random() * 100}%`,
-                    animationDelay: `${Math.random() * 8}s`,
-                    animationDuration: `${8 + Math.random() * 6}s`,
-                    fontSize: `${16 + Math.random() * 16}px`,
-                    opacity: 0.4 + Math.random() * 0.3,
+                    left: `${l.left}%`,
+                    animationDelay: `${l.delay}s`,
+                    animationDuration: `${l.duration}s`,
+                    fontSize: `${l.fontSize}px`,
+                    opacity: l.opacity,
                 }}
             >
-                {leafEmojis[i % leafEmojis.length]}
+                {l.emoji}
             </div>
         ));
     };
 
+    const pollutionData = useMemo(() => {
+        const witheredEmojis = ['🍂', '🍁', '🥀', '🍃'];
+        const leaves = Array.from({ length: leafCount * 1.5 }).map((_, i) => ({
+            emoji: witheredEmojis[i % 4],
+            left: Math.random() * 100,
+            delay: Math.random() * 10,
+            duration: 10 + Math.random() * 10,
+            fontSize: 14 + Math.random() * 10,
+            opacity: 0.6 + Math.random() * 0.4
+        }));
+
+        const smoke = Array.from({ length: particleCount * 2 }).map(() => ({
+            left: Math.random() * 100,
+            delay: Math.random() * 5,
+            duration: 6 + Math.random() * 4,
+            size: 20 + Math.random() * 60,
+            opacity: 0.1 + Math.random() * 0.2
+        }));
+
+        return { leaves, smoke };
+    }, [leafCount, particleCount]);
+
     const renderPollution = () => {
         // Falling withered leaves and plants
-        const leaves = Array.from({ length: leafCount * 1.5 }).map((_, i) => (
+        const leavesElements = pollutionData.leaves.map((l, i) => (
             <div
                 key={`leaf-${i}`}
                 className="falling-debris"
                 style={{
-                    left: `${Math.random() * 100}%`,
+                    left: `${l.left}%`,
                     top: `-10%`,
-                    animationDelay: `${Math.random() * 10}s`,
-                    animationDuration: `${10 + Math.random() * 10}s`,
-                    fontSize: `${14 + Math.random() * 10}px`,
-                    opacity: 0.6 + Math.random() * 0.4,
+                    animationDelay: `${l.delay}s`,
+                    animationDuration: `${l.duration}s`,
+                    fontSize: `${l.fontSize}px`,
+                    opacity: l.opacity,
                     filter: 'grayscale(0.6) sepia(0.4)', // Withered look
                 }}
             >
-                {['🍂', '🍁', '🥀', '🍃'][i % 4]}
+                {l.emoji}
             </div>
         ));
 
         // Rising smoke/pollution particles
-        const smoke = Array.from({ length: particleCount * 2 }).map((_, i) => (
+        const smokeElements = pollutionData.smoke.map((s, i) => (
             <div
                 key={`smoke-${i}`}
                 className="smoke-particle"
                 style={{
-                    left: `${Math.random() * 100}%`,
+                    left: `${s.left}%`,
                     bottom: `-20%`,
-                    animationDelay: `${Math.random() * 5}s`,
-                    animationDuration: `${6 + Math.random() * 4}s`,
-                    width: `${20 + Math.random() * 60}px`,
-                    height: `${20 + Math.random() * 60}px`,
-                    opacity: 0.1 + Math.random() * 0.2,
+                    animationDelay: `${s.delay}s`,
+                    animationDuration: `${s.duration}s`,
+                    width: `${s.size}px`,
+                    height: `${s.size}px`,
+                    opacity: s.opacity,
                 }}
             />
         ));
@@ -115,8 +159,8 @@ const AnimatedBackground = ({ variant = 'particles', intensity = 'medium' }) => 
         return (
             <>
                 <div className="pollution-overlay" />
-                {smoke}
-                {leaves}
+                {smokeElements}
+                {leavesElements}
             </>
         );
     };
@@ -194,6 +238,7 @@ const AnimatedBackground = ({ variant = 'particles', intensity = 'medium' }) => 
     const renderEarth = () => {
         return (
             <div className="earth-container">
+                <NetZeroCountdown />
                 <div className="earth-sphere">
                     <div className="map-texture"></div>
                     <div className="earth-glow"></div>
@@ -202,43 +247,46 @@ const AnimatedBackground = ({ variant = 'particles', intensity = 'medium' }) => 
         );
     };
 
+    // Memoize tree data so random positions stay fixed across re-renders
+    const treeData = useMemo(() => {
+        return Array.from({ length: 5 }).map((_, i) => ({
+            scale: 0.5 + Math.random() * 0.5,
+            left: 5 + i * 20 + Math.random() * 10,
+        }));
+    }, []);
+
     const renderTrees = () => {
-        // Simple procedural SVG trees - clean and non-intrusive
-        const trees = Array.from({ length: 5 }).map((_, i) => {
-            const scale = 0.5 + Math.random() * 0.5;
-            const left = 5 + i * 20 + Math.random() * 10;
-            const delay = i * 0.5;
+        return (
+            <>
+                {treeData.map((tree, i) => (
+                    <svg
+                        key={i}
+                        className="growing-tree-svg"
+                        viewBox="0 0 100 200"
+                        width={100 * tree.scale}
+                        height={200 * tree.scale}
+                        style={{ left: `${tree.left}%`, bottom: '-20px' }}
+                    >
+                        <g>
+                            {/* Trunk */}
+                            <path className="tree-path" d="M50,200 Q50,150 50,100" />
+                            {/* Branches */}
+                            <path className="tree-path" d="M50,100 Q30,70 10,60" />
+                            <path className="tree-path" d="M50,100 Q70,70 90,60" />
+                            <path className="tree-path" d="M50,120 Q30,100 20,90" />
+                            <path className="tree-path" d="M50,120 Q70,100 80,90" />
 
-            return (
-                <svg
-                    key={i}
-                    className="growing-tree-svg"
-                    viewBox="0 0 100 200"
-                    width={100 * scale}
-                    height={200 * scale}
-                    style={{ left: `${left}%`, bottom: '-20px' }}
-                >
-                    <g style={{ animationDelay: `${delay}s` }}>
-                        {/* Trunk */}
-                        <path className="tree-path" d="M50,200 Q50,150 50,100" style={{ animationDelay: `${delay}s` }} />
-                        {/* Branches */}
-                        <path className="tree-path" d="M50,100 Q30,70 10,60" style={{ animationDelay: `${delay + 0.5}s` }} />
-                        <path className="tree-path" d="M50,100 Q70,70 90,60" style={{ animationDelay: `${delay + 0.7}s` }} />
-                        <path className="tree-path" d="M50,120 Q30,100 20,90" style={{ animationDelay: `${delay + 0.9}s` }} />
-                        <path className="tree-path" d="M50,120 Q70,100 80,90" style={{ animationDelay: `${delay + 1.1}s` }} />
-
-                        {/* Leaves */}
-                        <circle cx="10" cy="60" r="5" className="tree-leaf" style={{ animationDelay: `${delay + 1.5}s` }} />
-                        <circle cx="90" cy="60" r="5" className="tree-leaf" style={{ animationDelay: `${delay + 1.7}s` }} />
-                        <circle cx="20" cy="90" r="4" className="tree-leaf" style={{ animationDelay: `${delay + 1.9}s` }} />
-                        <circle cx="80" cy="90" r="4" className="tree-leaf" style={{ animationDelay: `${delay + 2.1}s` }} />
-                        <circle cx="50" cy="100" r="6" className="tree-leaf" style={{ animationDelay: `${delay + 2.3}s` }} />
-                    </g>
-                </svg>
-            );
-        });
-
-        return <>{trees}</>;
+                            {/* Leaves */}
+                            <circle cx="10" cy="60" r="5" className="tree-leaf" />
+                            <circle cx="90" cy="60" r="5" className="tree-leaf" />
+                            <circle cx="20" cy="90" r="4" className="tree-leaf" />
+                            <circle cx="80" cy="90" r="4" className="tree-leaf" />
+                            <circle cx="50" cy="100" r="6" className="tree-leaf" />
+                        </g>
+                    </svg>
+                ))}
+            </>
+        );
     };
 
     return (

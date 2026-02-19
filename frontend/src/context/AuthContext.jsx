@@ -118,6 +118,26 @@ export const AuthProvider = ({ children }) => {
         return data;
     };
 
+    const registerAdmin = async (email, name, password, adminSecret) => {
+        const res = await fetch(`${API_URL}/auth/register-admin`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, name, password, adminSecret })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            throw new Error(data.error || 'Admin registration failed');
+        }
+
+        setUser(data.user);
+        setToken(data.token);
+        localStorage.setItem('adminToken', data.token);
+
+        return data;
+    };
+
     const logout = () => {
         setUser(null);
         setToken(null);
@@ -136,6 +156,7 @@ export const AuthProvider = ({ children }) => {
         isAdmin,
         login,
         register,
+        registerAdmin,
         logout,
         forgotPassword,
         resetPassword

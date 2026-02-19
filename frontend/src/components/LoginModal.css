@@ -212,3 +212,12 @@
     text-align: center;
     margin-bottom: var(--spacing-2);
 }
+
+/* Admin Button */
+.submit-btn--admin {
+    background: linear-gradient(135deg, #D97706, #F59E0B);
+}
+
+.submit-btn--admin:hover:not(:disabled) {
+    box-shadow: 0 4px 12px rgba(217, 119, 6, 0.35);
+}

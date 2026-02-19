@@ -188,8 +188,12 @@ const ResourcesPage = () => {
     // Question Submission
     const handleAskSubmit = async (e) => {
         e.preventDefault();
-        if (!newQuestion.title || !newQuestion.email) {
-            alert("Title and Email are required!");
+        if (!newQuestion.title) {
+            alert("Title is required!");
+            return;
+        }
+        if (!isLoggedIn && !newQuestion.email) {
+            alert("Email is required!");
             return;
         }
 
@@ -233,8 +237,12 @@ const ResourcesPage = () => {
     // Answer Submission
     const handleAnswerSubmit = async (e, qId) => {
         e.preventDefault();
-        if (!newAnswer.content || !newAnswer.email) {
-            alert("Answer content and Email are required!");
+        if (!newAnswer.content) {
+            alert("Answer content is required!");
+            return;
+        }
+        if (!isLoggedIn && !newAnswer.email) {
+            alert("Email is required!");
             return;
         }
 
@@ -546,19 +554,28 @@ const ResourcesPage = () => {
                                             rows="3"
                                         />
                                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                                            <input
-                                                type="email"
-                                                placeholder="Your Email (Required) *"
-                                                value={newQuestion.email}
-                                                onChange={(e) => setNewQuestion({ ...newQuestion, email: e.target.value })}
-                                                required
-                                            />
-                                            <input
-                                                type="text"
-                                                placeholder="Your Name (Optional)"
-                                                value={newQuestion.author}
-                                                onChange={(e) => setNewQuestion({ ...newQuestion, author: e.target.value })}
-                                            />
+                                            {!isLoggedIn && (
+                                                <>
+                                                    <input
+                                                        type="email"
+                                                        placeholder="Your Email (Required) *"
+                                                        value={newQuestion.email}
+                                                        onChange={(e) => setNewQuestion({ ...newQuestion, email: e.target.value })}
+                                                        required
+                                                    />
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Your Name (Optional)"
+                                                        value={newQuestion.author}
+                                                        onChange={(e) => setNewQuestion({ ...newQuestion, author: e.target.value })}
+                                                    />
+                                                </>
+                                            )}
+                                            {isLoggedIn && (
+                                                <p style={{ gridColumn: '1 / -1', margin: 0, fontSize: '13px', color: '#059669' }}>
+                                                    ✓ Posting as {user.name} ({user.email})
+                                                </p>
+                                            )}
                                         </div>
                                         <button type="submit" className="submit-btn" style={{ marginTop: '10px' }}>Post Question</button>
                                     </motion.form>
@@ -616,23 +633,30 @@ const ResourcesPage = () => {
                                                                 style={{ flex: 2 }}
                                                             />
                                                         </div>
-                                                        <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
-                                                            <input
-                                                                type="email"
-                                                                placeholder="Your Email *"
-                                                                value={newAnswer.email}
-                                                                onChange={(e) => setNewAnswer({ ...newAnswer, email: e.target.value })}
-                                                                required
-                                                                style={{ flex: 1, padding: '8px', borderRadius: '8px', border: '1px solid #e5e7eb' }}
-                                                            />
-                                                            <input
-                                                                type="text"
-                                                                placeholder="Your Name"
-                                                                value={newAnswer.name}
-                                                                onChange={(e) => setNewAnswer({ ...newAnswer, name: e.target.value })}
-                                                                style={{ flex: 1, padding: '8px', borderRadius: '8px', border: '1px solid #e5e7eb' }}
-                                                            />
-                                                        </div>
+                                                        {!isLoggedIn && (
+                                                            <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+                                                                <input
+                                                                    type="email"
+                                                                    placeholder="Your Email *"
+                                                                    value={newAnswer.email}
+                                                                    onChange={(e) => setNewAnswer({ ...newAnswer, email: e.target.value })}
+                                                                    required
+                                                                    style={{ flex: 1, padding: '8px', borderRadius: '8px', border: '1px solid #e5e7eb' }}
+                                                                />
+                                                                <input
+                                                                    type="text"
+                                                                    placeholder="Your Name"
+                                                                    value={newAnswer.name}
+                                                                    onChange={(e) => setNewAnswer({ ...newAnswer, name: e.target.value })}
+                                                                    style={{ flex: 1, padding: '8px', borderRadius: '8px', border: '1px solid #e5e7eb' }}
+                                                                />
+                                                            </div>
+                                                        )}
+                                                        {isLoggedIn && (
+                                                            <p style={{ margin: '0 0 10px 0', fontSize: '13px', color: '#059669' }}>
+                                                                ✓ Replying as {user.name}
+                                                            </p>
+                                                        )}
                                                         <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
                                                             <button type="button" className="cancel" onClick={() => setAnsweringQuestionId(null)}>Cancel</button>
                                                             <button type="submit">Reply</button>

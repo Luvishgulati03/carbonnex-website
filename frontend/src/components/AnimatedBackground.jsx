@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import './AnimatedBackground.css';
-import NetZeroCountdown from './NetZeroCountdown';
-
+import './AnimatedBackground.css';
 const AnimatedBackground = ({ variant = 'particles', intensity = 'medium' }) => {
     const containerRef = useRef(null);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -238,7 +237,6 @@ const AnimatedBackground = ({ variant = 'particles', intensity = 'medium' }) => 
     const renderEarth = () => {
         return (
             <div className="earth-container">
-                <NetZeroCountdown />
                 <div className="earth-sphere">
                     <div className="map-texture"></div>
                     <div className="earth-glow"></div>

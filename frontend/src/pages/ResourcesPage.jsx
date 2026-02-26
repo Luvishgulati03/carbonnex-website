@@ -43,9 +43,9 @@ const ResourcesPage = () => {
             try {
                 const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
                 const [qRes, cRes, rRes] = await Promise.all([
-                    fetch('http://localhost:5000/api/questions'),
-                    fetch('http://localhost:5000/api/categories'),
-                    fetch('http://localhost:5000/api/resources', { headers })
+                    fetch('http://localhost:8000/api/questions'),
+                    fetch('http://localhost:8000/api/categories'),
+                    fetch('http://localhost:8000/api/resources', { headers })
                 ]);
 
                 const questions = await qRes.json();
@@ -127,10 +127,10 @@ const ResourcesPage = () => {
     const fetchMyFaq = async () => {
         try {
             const [qRes, aRes] = await Promise.all([
-                fetch('http://localhost:5000/api/users/me/questions', {
+                fetch('http://localhost:8000/api/users/me/questions', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 }),
-                fetch('http://localhost:5000/api/users/me/answers', {
+                fetch('http://localhost:8000/api/users/me/answers', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 })
             ]);
@@ -150,7 +150,7 @@ const ResourcesPage = () => {
         if (searchQuery.trim().length < 2) return;
 
         try {
-            const res = await fetch(`http://localhost:5000/api/questions/search?q=${encodeURIComponent(searchQuery)}`);
+            const res = await fetch(`http://localhost:8000/api/questions/search?q=${encodeURIComponent(searchQuery)}`);
             const results = await res.json();
 
             const formattedQuestions = results.map(q => ({
@@ -171,7 +171,7 @@ const ResourcesPage = () => {
         if (!window.confirm('Are you sure you want to delete this question?')) return;
 
         try {
-            const res = await fetch(`http://localhost:5000/api/questions/${questionId}`, {
+            const res = await fetch(`http://localhost:8000/api/questions/${questionId}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -198,7 +198,7 @@ const ResourcesPage = () => {
         }
 
         try {
-            const res = await fetch('http://localhost:5000/api/questions', {
+            const res = await fetch('http://localhost:8000/api/questions', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -247,7 +247,7 @@ const ResourcesPage = () => {
         }
 
         try {
-            const res = await fetch('http://localhost:5000/api/answers', {
+            const res = await fetch('http://localhost:8000/api/answers', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -423,7 +423,7 @@ const ResourcesPage = () => {
                                     </span>
 
                                     {resource.file_path ? (
-                                        <a href={`http://localhost:5000${resource.file_path}`} download target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                                        <a href={`http://localhost:8000${resource.file_path}`} download target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
                                             <CTAButton variant="primary" size="small">Download PDF</CTAButton>
                                         </a>
                                     ) : (

@@ -6,6 +6,7 @@ import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, ResponsiveContainer, 
 import CTAButton from '../components/CTAButton';
 import AnimatedBackground from '../components/AnimatedBackground';
 import GlobalEmissionsTracker from '../components/GlobalEmissionsTracker';
+import NetZeroCountdown from '../components/NetZeroCountdown';
 import './HomePage.css';
 
 const HomePage = () => {
@@ -130,7 +131,7 @@ const HomePage = () => {
     useEffect(() => {
         const fetchInsights = async () => {
             try {
-                const res = await fetch('http://localhost:5000/api/resources');
+                const res = await fetch('http://localhost:8000/api/resources');
                 if (res.ok) {
                     const data = await res.json();
                     setInsights(data);
@@ -157,6 +158,10 @@ const HomePage = () => {
         <div className="homepage">
             {/* Hero Section */}
             <section className="hero">
+                {/* Countdown positioned directly in hero container for proper z-indexing and placement */}
+                <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', zIndex: 50, display: 'flex', justifyContent: 'center' }}>
+                    <NetZeroCountdown />
+                </div>
                 <div className="hero__background">
                     {/* NATURE VARIANT: Earth & Growing Trees */}
                     <AnimatedBackground variant="nature" intensity="medium" />
@@ -166,16 +171,16 @@ const HomePage = () => {
                         className="hero__content"
                     /* Removed entry animation as requested */
                     >
-                        <span className="hero__badge">{t('home.hero.badge')}</span>
+                        <span className="hero__badge">AI-Powered Tech</span>
                         <h1 className="hero__title">
-                            {t('home.hero.title')}
+                            Transform Your Carbon Footprint With Intelligent Automation
                         </h1>
                         <p className="hero__subtitle">
-                            {t('home.hero.subtitle')}
+                            Leverage advanced AI and automation to streamline complex ESG compliance. We turn difficult reporting into a seamless, tech-driven advantage for modern enterprises.
                         </p>
                         <div className="hero__ctas">
-                            <CTAButton href="/contact" size="large">{t('home.hero.cta_primary')}</CTAButton>
-                            <CTAButton href="#services" variant="outline" size="large">{t('home.hero.cta_secondary')}</CTAButton>
+                            <CTAButton href="/contact" size="large">Start Your AI ESG Journey</CTAButton>
+                            <CTAButton href="#services" variant="outline" size="large">Explore Smart Services</CTAButton>
                         </div>
                     </motion.div>
 
@@ -232,11 +237,11 @@ const HomePage = () => {
                 <div className="container">
                     <div className="beta-banner__content">
                         <div className="beta-banner__text">
-                            <span className="beta-banner__badge">{t('home.beta.badge')}</span>
-                            <h3>{t('home.beta.title')}</h3>
-                            <p>{t('home.beta.desc')}</p>
+                            <span className="beta-banner__badge">AI Integration Beta</span>
+                            <h3>Automated Data Collection Engine</h3>
+                            <p>Try our newly released machine-learning powered ingestion tool that automatically maps your unstructured data into compliance-ready formats.</p>
                         </div>
-                        <CTAButton href="/contact" variant="outline">{t('home.beta.cta')}</CTAButton>
+                        <CTAButton href="/contact" variant="outline">Request Beta Access</CTAButton>
                     </div>
                 </div>
             </section>
@@ -249,9 +254,9 @@ const HomePage = () => {
                 </div>
                 <div className="container" style={{ position: 'relative', zIndex: 1 }}>
                     <div className="section-header text-center">
-                        <span className="section-badge">{t('home.esg.badge')}</span>
-                        <h2>{t('home.esg.title')}</h2>
-                        <p>{t('home.esg.subtitle')}</p>
+                        <span className="section-badge">Intelligent Insights</span>
+                        <h2>Why AI-Driven ESG?</h2>
+                        <p>Traditional compliance is slow and prone to errors. Our automated technology makes tracking, analyzing, and reporting effortless.</p>
                     </div>
 
                     <div className="esg-definition">

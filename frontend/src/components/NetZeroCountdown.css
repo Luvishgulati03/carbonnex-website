@@ -1,24 +1,25 @@
 .net-zero-countdown-container {
     position: absolute;
-    top: 8%;
-    /* Placed inside the globe, near the top edge */
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
+    /* Move to top of hero section. */
+    top: 5vh;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    z-index: 50;
     pointer-events: auto;
-    /* Allow interaction if needed, though mostly visual */
     display: flex;
     justify-content: center;
-    width: 100%;
+    width: max-content;
+    max-width: 90vw;
 }
 
 .net-zero-countdown {
-    background: rgba(2, 44, 34, 0.4);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(16, 185, 129, 0.3);
+    background: rgba(2, 44, 34, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(16, 185, 129, 0.4);
     border-radius: var(--radius-xl);
-    padding: var(--spacing-4) var(--spacing-6);
+    padding: var(--spacing-3) var(--spacing-5);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
         inset 0 0 20px rgba(16, 185, 129, 0.1);
     display: flex;

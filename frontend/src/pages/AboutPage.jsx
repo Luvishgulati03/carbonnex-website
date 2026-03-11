@@ -7,7 +7,6 @@ import './AboutPage.css';
 const AboutPage = () => {
     const { t } = useTranslation();
 
-    const leadership = t('about.team.items', { returnObjects: true });
     const certifications = t('about.certifications.items', { returnObjects: true });
     const whyChooseUs = t('about.why_choose_us.items', { returnObjects: true });
     const servicesOverview = t('about.what_we_do.items', { returnObjects: true });
@@ -147,34 +146,6 @@ const AboutPage = () => {
                 </div>
             </section>
 
-            {/* Leadership */}
-            <section className="about-team section">
-                <div className="container">
-                    <div className="section-header text-center">
-                        <span className="section-badge">{t('about.team.badge')}</span>
-                        <h2>{t('about.team.title')}</h2>
-                        <p>{t('about.team.subtitle')}</p>
-                    </div>
-
-                    <div className="team-grid">
-                        {leadership.map((member, index) => (
-                            <motion.div
-                                key={index}
-                                className="team-card"
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.1 }}
-                            >
-                                <div className="team-card__avatar">{member.image}</div>
-                                <h3>{member.name}</h3>
-                                <span className="team-card__role">{member.role}</span>
-                                <span className="team-card__expertise">{member.expertise}</span>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
 
             {/* Certifications */}
             <section className="about-certs section">
@@ -195,7 +166,10 @@ const AboutPage = () => {
                                 transition={{ delay: index * 0.05 }}
                             >
                                 <span className="cert-icon">✓</span>
-                                {cert}
+                                <div className="cert-content" style={{ display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
+                                    <strong style={{ fontSize: '1rem', color: '#1F2937' }}>{cert.name}</strong>
+                                    <span style={{ fontSize: '0.85rem', color: '#6B7280', marginTop: '4px' }}>{cert.desc}</span>
+                                </div>
                             </motion.div>
                         ))}
                     </div>

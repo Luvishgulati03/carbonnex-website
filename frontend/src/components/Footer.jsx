@@ -6,11 +6,11 @@ const Footer = () => {
     const currentYear = new Date().getFullYear();
 
     const services = [
-        { name: 'Scope 1 Management', path: '/services/scope-1' },
-        { name: 'Scope 2 Management', path: '/services/scope-2' },
-        { name: 'Scope 3 Management', path: '/services/scope-3' },
-        { name: 'ESG Advisory', path: '/services/esg-advisory' },
         { name: 'Carbon Accounting', path: '/services/carbon-accounting' },
+        { name: 'Compliance & Reporting', path: '/services/compliance' },
+        { name: 'ESG Intelligence', path: '/services/esg-intelligence' },
+        { name: 'Supply Chain Tracking', path: '/services/supply-chain' },
+        { name: 'Decarbonization Strategy', path: '/services/strategy' },
     ];
 
     const company = [
@@ -35,7 +35,7 @@ const Footer = () => {
                             </span>
                         </Link>
                         <p className="footer__tagline">
-                            Transforming businesses with sustainable ESG solutions and carbon management expertise.
+                            AI-powered platform for real-time carbon accounting, compliance automation, and ESG intelligence.
                         </p>
                         <div className="footer__social">
                             <a href="#" className="footer__social-link" aria-label="LinkedIn">

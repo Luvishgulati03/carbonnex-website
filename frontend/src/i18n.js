@@ -16,18 +16,18 @@ const resources = {
                     "core_platform": "Core Platform",
                     "future_capabilities": "Future Capabilities",
                     "items": {
-                        "carbon_accounting": { "title": "Carbon Accounting", "desc": "Scope 1, 2, & 3 measurement" },
-                        "esg_data": { "title": "ESG Data Management", "desc": "Centralized data repository" },
-                        "compliance": { "title": "Compliance Reporting", "desc": "BRSR & global mandates" },
-                        "evidence": { "title": "Evidence Management", "desc": "Audit trail & tagging" },
-                        "ai_validation": { "title": "AI Validation", "desc": "Intelligent quality checks" },
-                        "insights": { "title": "Dashboards & Insights", "desc": "Strategic visibility" },
-                        "carbon_credits": { "title": "Carbon Credits", "desc": "Offsetting marketplace" },
-                        "blockchain": { "title": "Blockchain Assurance", "desc": "Immutable audit records" },
-                        "integrations": { "title": "Integrations", "desc": "Utility & consumer APIs" },
-                        "decarbonization": { "title": "Decarbonization", "desc": "AI-driven planning" },
+                        "carbon_accounting": { "title": "Carbon Accounting", "desc": "Scope 1, 2, & 3 Measurement" },
+                        "data_intelligence": { "title": "Carbon Data Intelligence Hub", "desc": "Centralized Data Repository" },
+                        "compliance": { "title": "Compliance Reporting", "desc": "BRSR & Global Mandates" },
+                        "compliance_automation": { "title": "Compliance Automation Layer", "desc": "Audit Trail & Tagging" },
+                        "ai_validation": { "title": "AI Carbon Validation Engine", "desc": "Intelligent Quality Checks" },
+                        "dashboards": { "title": "Executive Carbon Intelligence Dashboards", "desc": "Strategic Visibility" },
+                        "carbon_credits": { "title": "Carbon Credits", "desc": "Offsetting Marketplace" },
+                        "blockchain": { "title": "Blockchain Assurance", "desc": "Immutable Audit Records" },
+                        "integrations": { "title": "Integrations", "desc": "Utility & Consumer APIs" },
+                        "decarbonization": { "title": "Decarbonization", "desc": "AI-Driven Planning" },
                         "voluntary_frameworks": { "title": "Voluntary Frameworks", "desc": "SBTi, CDP, TCFD" },
-                        "supply_chain": { "title": "Supply Chain", "desc": "Product carbon footprint" }
+                        "supply_chain": { "title": "Supply Chain", "desc": "Product Carbon Footprint" }
                     },
                     "badges": {
                         "soon": "Soon"
@@ -36,31 +36,31 @@ const resources = {
             },
             "home": {
                 "hero": {
-                    "badge": "Leading ESG Consultancy",
+                    "badge": "AI-Powered Compliance Automation",
                     "title": "Transform Your Carbon Footprint Into Competitive Advantage",
-                    "subtitle": "Comprehensive ESG solutions for modern enterprises",
-                    "cta_primary": "Start Your ESG Journey",
-                    "cta_secondary": "Explore Services",
+                    "subtitle": "AI-powered carbon intelligence platform for automated compliance, real-time emissions tracking, and enterprise decarbonization",
+                    "cta_primary": "Request Platform Demo",
+                    "cta_secondary": "See Platform in Action",
                     "emissions_breakdown": "Corporate Emissions Breakdown"
                 },
                 "beta": {
                     "badge": "Coming Soon",
                     "title": "CarbonNex Compliance Automation Platform",
-                    "desc": "Our AI-powered compliance automation and advisory software is launching soon. Be among the first to experience seamless BRSR reporting.",
+                    "desc": "AI-powered compliance automation and advisory software for seamless BRSR reporting.",
                     "cta": "Join Waitlist"
                 },
                 "esg": {
                     "badge": "Understanding ESG",
                     "title": "What is ESG Reporting?",
-                    "subtitle": "A structured framework for organizations to disclose their environmental, social, and governance practices",
-                    "desc_p1": "ESG Reporting includes a framework for organizations to display their environmental, social, and governance practices along with their impacts and influence. The reporting aims to provide transparency on how an organization manages various ESG risks and opportunities.",
-                    "desc_p2": "ESG frameworks give a structured blueprint ensuring consistency and coherence in the sustainability landscape. ESG Reporting functions as a conduit for companies to communicate their progress to potential investors.",
+                    "subtitle": "A structured framework to disclose environmental, social, and governance practices",
+                    "desc_p1": "ESG Reporting provides transparency on ESG risks, opportunities, and impacts.",
+                    "desc_p2": "Frameworks ensure consistency and help communicate sustainability performance to investors.",
                     "chart_title": "Emission Reduction Trajectory"
                 },
                 "services": {
                     "badge": "Our Services",
-                    "title": "Comprehensive ESG Solutions",
-                    "subtitle": "End-to-end carbon management and sustainability services for your organization",
+                    "title": "Enterprise Carbon Intelligence Platform Modules",
+                    "subtitle": "End-to-end carbon intelligence, automated compliance, and enterprise reporting.",
                     "learn_more": "Learn More"
                 },
                 "infographic": {
@@ -111,12 +111,12 @@ const resources = {
                     "accounting": { "title": "Carbon Accounting", "desc": "Precise calculation and tracking of GHG footprint" }
                 },
                 "frameworks_list": {
-                    "gri": "Global Reporting Initiative",
-                    "tcfd": "Task Force on Climate-related Financial Disclosures",
-                    "sasb": "Sustainability Accounting Standards Board",
-                    "cdp": "Carbon Disclosure Project",
-                    "brsr": "Business Responsibility and Sustainability Reporting",
-                    "sdg": "Sustainable Development Goals"
+                    "gri": { "name": "Global Reporting Initiative", "desc": "The GRI Standards provide a modular framework for reporting an organization’s impacts on the economy, environment, and people, focusing on 'impact materiality'. Recent 2025 updates to Topic Standards ensure full alignment with the GHG Protocol." },
+                    "tcfd": { "name": "Task Force on Climate-related Financial Disclosures", "desc": "Built on four pillars Governance, Strategy, Risk Management, and Metrics & Target. The TCFD framework helps companies disclose how climate-related risks and opportunities affect their financial performance." },
+                    "sasb": { "name": "Sustainability Accounting Standards Board", "desc": "SASB provides 77 industry-specific standards that identify the subset of ESG issues most relevant to investor decision-making and financial performance within a particular sector." },
+                    "cdp": { "name": "Carbon Disclosure Project", "desc": "This voluntary platform scores companies on their environmental transparency, providing data to over 700 institutional investors and helping organizations identify untapped growth opportunities." },
+                    "brsr": { "name": "Business Responsibility and Sustainability Reporting", "desc": "The mandatory ESG disclosure framework for the top 1,000 listed companies in India, based on the National Guidelines on Responsible Business Conduct (NGRBC)." },
+                    "sdg": { "name": "Sustainable Development Goals", "desc": "17 global goals and 169 targets designed to address urgent social and environmental challenges by 2030. Organizations map custom metrics to demonstrate how strategy contributes to global sustainable development." }
                 },
                 "esg_pillars": {
                     "env": { "title": "Environmental", "items": ["Carbon Footprint", "Waste Management", "Water Usage", "Energy Efficiency"] },
@@ -124,42 +124,42 @@ const resources = {
                     "gov": { "title": "Governance", "items": ["Board Diversity", "Ethical Conduct", "Risk Management", "Transparency"] }
                 },
                 "process_steps": {
-                    "step1": { "title": "Discovery", "desc": "Comprehensive assessment of current ESG status and emission sources" },
-                    "step2": { "title": "Data Collection", "desc": "Gather activity data from all emission sources across operations" },
-                    "step3": { "title": "Analysis", "desc": "Calculate emissions using GHG Protocol methodologies" },
-                    "step4": { "title": "Strategy", "desc": "Develop reduction roadmap with science-based targets" },
-                    "step5": { "title": "Implementation", "desc": "Deploy CarbonNex platform for continuous monitoring" },
-                    "step6": { "title": "Verification", "desc": "Third-party audit and certification of your emissions data" }
+                    "step1": { "title": "Data Integration", "desc": "Continuous data aggregation from ERPs, IoT utility meters, and supply chain APIs." },
+                    "step2": { "title": "AI Validation", "desc": "Intelligent anomaly detection and evidence cross-referencing to ensure audit-readiness." },
+                    "step3": { "title": "Carbon Accounting Engine", "desc": "Automated GHG Protocol emission calculations across Scopes 1, 2, and 3." },
+                    "step4": { "title": "Compliance Automation", "desc": "Real-time mapping of matched metrics to global frameworks (BRSR, CSRD, SECR)." },
+                    "step5": { "title": "Intelligence Dashboard", "desc": "Dynamic visual layer showing decarbonization trajectories and ESG performance metrics." },
+                    "step6": { "title": "Verification Layer", "desc": "Blockchain-anchored trail for third-party auditors to verify immutable disclosures." }
                 },
                 "regulations_list": {
-                    "eu": { "region": "European Union", "desc": "Corporate Sustainability Reporting Directive requires detailed ESG disclosures" },
-                    "us": { "region": "United States", "desc": "SEC Climate Disclosure Rules for public companies" },
-                    "india": { "region": "India", "desc": "SEBI-mandated BRSR reporting for top listed companies" },
-                    "uk": { "region": "United Kingdom", "desc": "Streamlined Energy and Carbon Reporting (SECR) framework" }
+                    "eu": { "region": "European Union", "desc": "The Corporate Sustainability Reporting Directive (CSRD) is the cornerstone of the EU’s sustainable finance strategy, mandating approximately 50,000 companies to disclose standardized ESG data. These disclosures must align with the European Sustainability Reporting Standards (ESRS), which are built on the principle of 'double materiality'.<br/><br/>A significant technical update in 2025 was the proposal for 'Amended ESRS,' which reduced mandatory datapoints by 61% to ease the reporting burden while maintaining the core objectives of the EU Green Deal. These standards require the use of digital tagging (XBRL)." },
+                    "us": { "region": "United States", "desc": "The U.S. Securities and Exchange Commission (SEC) adopted final rules in March 2024 designed to standardize climate-related risk disclosures for investors. While these rules faced significant legal challenges and a subsequent withdrawal of defense by the SEC in 2025, they represent a pivotal attempt to bring climate data into the financial reporting ecosystem.<br/><br/>The SEC rules focused on the financial statement effects of severe weather events and the disclosure of Scope 1 and Scope 2 emissions for large accelerated filers, provided such emissions were material to the business." },
+                    "india": { "region": "India", "desc": "The Business Responsibility and Sustainability Report (BRSR) is the mandatory ESG disclosure framework for the top 1,000 listed companies in India, based on the National Guidelines on Responsible Business Conduct (NGRBC).<br/><br/>Technically, BRSR Core demands a high degree of precision in intensity-based reporting, requiring companies to disclose footprints adjusted for Purchasing Power Parity (PPP) and output-based measures like production volume or employee count. CarbonNex automates these complex calculations." },
+                    "uk": { "region": "United Kingdom", "desc": "SECR is a mandatory UK framework requiring large companies to report on their energy use and carbon emissions within their annual directors’ reports. It applies to quoted companies, large unquoted companies, and large limited liability partnerships (LLPs).<br/><br/>Technically, SECR requires the disclosure of annual UK energy consumption (electricity, gas, and transport fuel), associated GHG emissions in tonnes of CO2e, and at least one intensity ratio." }
                 }
             },
             "about": {
                 "hero": {
                     "badge": "About CarbonNex",
-                    "title": "Changing the World's <span class=\"text-lime\">Climattude</span>",
-                    "desc": "We are a leading ESG consultancy firm helping organizations measure, manage, and reduce their environmental impact through innovative technology and expert guidance."
+                    "title": "Building the Infrastructure for Carbon Intelligence",
+                    "desc": "CarbonNex is a technology-first carbon intelligence company enabling automated compliance and enterprise decarbonization."
                 },
                 "mission": {
                     "title": "Our Mission",
-                    "desc": "To make ESG compliance accessible, transparent, and actionable for businesses of all sizes. We combine expert consultancy with cutting-edge technology to drive meaningful environmental impact and help organizations achieve their sustainability goals.",
-                    "list": ["Democratize access to ESG expertise", "Simplify complex compliance requirements", "Drive measurable environmental impact", "Enable data-driven sustainability decisions"]
+                    "desc": "Make ESG compliance accessible, transparent, and actionable.",
+                    "list": ["Automate ESG compliance", "Standardize carbon intelligence globally", "Enable real-time sustainability decisions"]
                 },
                 "vision": {
                     "title": "Our Vision",
-                    "desc": "A world where every business operates sustainably, contributing to a healthier planet and thriving communities. We envision being the global leader in ESG transformation, setting new standards for environmental accountability.",
-                    "list": ["Net-zero economy by 2050", "100% transparency in corporate emissions", "Sustainability as a competitive advantage", "Climate action at the core of business strategy"]
+                    "desc": "A sustainable global business ecosystem.",
+                    "list": ["Net-zero economy by 2050", "100% emissions transparency", "Sustainability as a competitive advantage"]
                 },
                 "story": {
                     "badge": "Our Journey",
                     "title": "Our Story",
-                    "p1": "Founded in 2020, CarbonNex emerged from a shared vision between environmental scientists and technology innovators. What began as a small research initiative focused on accurate carbon measurement has grown into a global consultancy trusted by enterprises worldwide.",
-                    "p2": "We recognized early on that for sustainability to be truly effective, it had to be measurable, transparent, and integrated into core business strategy. The gap between corporate intentions and environmental impact was often bridged by complex data challenges—challenges we set out to solve.",
-                    "p3": "Today, CarbonNex stands at the forefront of the ESG revolution. Our journey has been defined by a relentless pursuit of scientific rigor and technological excellence. From our first client partnership to enabling net-zero transitions for Industry 500 companies, our commitment remains unchanged: to empower businesses to turn their carbon footprint into a competitive advantage, leaving a lasting legacy for generations to come."
+                    "p1": "Founded in 2025 by environmental policy technical leads and technologists. What began as a focus on accurate carbon measurement has grown into a global consultancy.",
+                    "p2": "We recognized early on that for sustainability to be truly effective, it had to be measurable, transparent, and integrated into core business strategy.",
+                    "p3": "Today, we focus on measurable, transparent sustainability. CarbonNex is evolving into the global infrastructure for carbon compliance and intelligence."
                 },
                 "what_we_do": {
                     "badge": "What We Do",
@@ -177,12 +177,12 @@ const resources = {
                     "title": "What Sets Us Apart",
                     "subtitle": "Trusted by organizations for ESG excellence",
                     "items": [
-                        { "icon": "🎯", "title": "Domain Expertise", "desc": "Deep knowledge in carbon markets, ESG regulations, and sustainability frameworks across industries." },
-                        { "icon": "🔬", "title": "Scientific Rigor", "desc": "All our methodologies are aligned with IPCC guidelines and GHG Protocol standards." },
-                        { "icon": "⚡", "title": "Digital-First Approach", "desc": "Proprietary CarbonNex platform for real-time tracking, automated reporting, and data validation." },
-                        { "icon": "🌍", "title": "Global Coverage", "desc": "Expertise in regulations across EU, US, UK, India, and emerging markets." },
-                        { "icon": "🤝", "title": "End-to-End Support", "desc": "From baseline assessment to third-party verification, we handle the complete ESG journey." },
-                        { "icon": "📊", "title": "Data-Driven Insights", "desc": "Advanced analytics to identify reduction opportunities and benchmark against industry peers." }
+                        { "icon": "🎯", "title": "Domain Expertise", "desc": "Led by a multidisciplinary team of environmental scientists and professional technologists, assuring technical soundness and compliance with ISO 14064 and CDP benchmarks." },
+                        { "icon": "🔬", "title": "Scientific Rigor", "desc": "Our methodologies are strictly aligned with the IPCC AR5 assessment and the GHG Protocol Corporate Standard, ensuring absolute reporting accuracy." },
+                        { "icon": "⚡", "title": "Digital-First Platform", "desc": "Replaces manual spreadsheets with AI-driven architecture, automated data ingestion via APIs, and intelligent OCR for real-time validation without greenwashing." },
+                        { "icon": "🌍", "title": "Global Regulatory Coverage", "desc": "Meets specific mandates including SEBI BRSR Core, EU's CSRD/ESRS, and UK's SECR with full digital XBRL tagging support." },
+                        { "icon": "🤝", "title": "End-to-End ESG Support", "desc": "A complete operating system managing the entire ESG lifecycle from baseline assessment to immutable blockchain verification." },
+                        { "icon": "📊", "title": "Advanced Analytics & Benchmarking", "desc": "Provides granular performance tracking against industry peers using real-reported data and AI-powered dashboards for identifying decarbonization pathways." }
                     ]
                 },
                 "team": {
@@ -200,12 +200,12 @@ const resources = {
                     "badge": "Credentials",
                     "title": "Our Certifications & Expertise",
                     "items": [
-                        "ISO 14064 Lead Verifier",
-                        "GHG Protocol Certified",
-                        "CDP Accredited Partner",
-                        "BRSR Framework Expert",
-                        "Science-Based Targets Certified",
-                        "TCFD Aligned Reporting"
+                        { "name": "ISO 14064 Lead Verifier", "desc": "Advanced skills in the verification and validation of organizational GHG statements according to the ISO 14064-3:2019 standard." },
+                        { "name": "GHG Protocol Certified", "desc": "Certification ensures mastery of the world's most widely adopted methodology for measuring and managing GHG emissions." },
+                        { "name": "CDP Accredited Partner", "desc": "Officially recognized designation by CDP guaranteeing high-quality standards for environmental reporting and assessment." },
+                        { "name": "BRSR Expert", "desc": "Expertise in the Business Responsibility and Sustainability Report (BRSR), SEBI-mandated 49 Core KPIs, and NGRBC principles." },
+                        { "name": "Science-Based Targets Certified", "desc": "Expertise in setting near-term and long-term targets aligned with limiting global warming to 1.5°C." },
+                        { "name": "TCFD Aligned Reporting", "desc": "Expertise in the TCFD framework integrating climate-related risks into core governance, strategy, and risk management pillars." }
                     ]
                 },
                 "cta": {
@@ -250,12 +250,12 @@ const resources = {
                     { "id": "tool", "name": "Tools" }
                 ],
                 "items": [
-                    { "title": "Complete ESG Compliance Guide 2024", "category": "guide", "description": "A comprehensive guide covering all aspects of ESG compliance.", "topics": ["GRI Standards", "TCFD Alignment"], "readTime": "45 min read", "link": "https://www.globalreporting.org/standards/" },
+                    { "title": "ESG Compliance Guide 2024", "category": "guide", "description": "A comprehensive guide covering all aspects of ESG compliance.", "topics": ["GRI Standards", "TCFD Alignment"], "readTime": "45 min read", "link": "https://www.globalreporting.org/standards/" },
                     { "title": "Carbon Accounting Best Practices", "category": "whitepaper", "description": "Learn industry best practices for accurate carbon accounting.", "topics": ["Scope 1/2/3", "Emission Factors"], "readTime": "30 min read", "link": "https://ghgprotocol.org/corporate-standard" },
-                    { "title": "Understanding Scope 3 Emissions", "category": "article", "description": "Deep dive into value chain emissions management.", "topics": ["Supply Chain", "Supplier Engagement"], "readTime": "15 min read", "link": "https://www.epa.gov/climateleadership/scope-3-inventory-guidance" },
-                    { "title": "BRSR Framework Overview", "category": "guide", "description": "Everything about Business Responsibility Reporting in India.", "topics": ["SEBI Guidelines", "Reporting"], "readTime": "25 min read", "link": "https://www.sebi.gov.in" },
+                    { "title": "Scope 3 Explained", "category": "article", "description": "Deep dive into value chain emissions management.", "topics": ["Supply Chain", "Supplier Engagement"], "readTime": "15 min read", "link": "https://www.epa.gov/climateleadership/scope-3-inventory-guidance" },
+                    { "title": "BRSR Overview", "category": "guide", "description": "Everything about Business Responsibility Reporting in India.", "topics": ["SEBI Guidelines", "Reporting"], "readTime": "25 min read", "link": "https://www.sebi.gov.in" },
                     { "title": "Carbon Footprint Calculator", "category": "tool", "description": "Interactive tool for estimating carbon footprint.", "topics": ["Scope 1", "Scope 2"], "readTime": "5 min to use", "link": "https://www.carbonfootprint.com/calculator.aspx" },
-                    { "title": "Net Zero Roadmap Template", "category": "tool", "description": "Framework for your organization's net-zero plan.", "topics": ["Target Setting", "Milestones"], "readTime": "20 min to customize", "link": "https://sciencebasedtargets.org/net-zero" },
+                    { "title": "Net-Zero Roadmap Template", "category": "tool", "description": "Framework for your organization's net-zero plan.", "topics": ["Target Setting", "Milestones"], "readTime": "20 min to customize", "link": "https://sciencebasedtargets.org/net-zero" },
                     { "title": "CSRD Compliance Checklist", "category": "guide", "description": "EU CSRD requirements checklist.", "topics": ["EU Regulations", "Disclosure"], "readTime": "20 min read", "link": "https://finance.ec.europa.eu" },
                     { "title": "Science-Based Targets Explained", "category": "article", "description": "How to set science-based emissions targets.", "topics": ["SBTi", "1.5°C Pathway"], "readTime": "12 min read", "link": "https://sciencebasedtargets.org" },
                     { "title": "ESG Data Management", "category": "whitepaper", "description": "Best practices for managing ESG data.", "topics": ["Data Collection", "QA"], "readTime": "35 min read", "link": "https://www.weforum.org" }
@@ -286,8 +286,8 @@ const resources = {
                     { "question": "How long does ESG compliance take?", "answer": "Initial baseline assessment typically takes 4-8 weeks, with ongoing reporting cycles." }
                 ],
                 "newsletter": {
-                    "title": "Stay Updated on ESG Trends",
-                    "desc": "Subscribe to our newsletter for the latest insights, regulatory updates, and best practices in sustainability.",
+                    "title": "Stay Updated on Carbon Management Trends",
+                    "desc": "Regulatory updates and best practices in sustainability.",
                     "placeholder": "Enter your email address",
                     "button": "Subscribe"
                 },
@@ -715,12 +715,12 @@ const resources = {
                     "accounting": { "title": "Comptabilité Carbone", "desc": "Calcul précis et suivi de l'empreinte GES" }
                 },
                 "frameworks_list": {
-                    "gri": "Initiative Mondiale de Reporting",
-                    "tcfd": "Groupe de travail sur l'information financière relative aux changements climatiques",
-                    "sasb": "Conseil des normes comptables de durabilité",
-                    "cdp": "Projet de divulgation du carbone",
-                    "brsr": "Rapport sur la responsabilité et la durabilité des entreprises",
-                    "sdg": "Objectifs de développement durable"
+                    "gri": { "name": "Initiative Mondiale de Reporting", "desc": "Le cadre modulaire de reporting GRI se concentre sur l'impact de l'organisation." },
+                    "tcfd": { "name": "Groupe de travail TCFD", "desc": "Structuré autour de quatre piliers pour divulguer les risques liés au climat." },
+                    "sasb": { "name": "Normes SASB", "desc": "77 normes sectorielles axées sur les questions ESG financièrement matérielles." },
+                    "cdp": { "name": "Projet de divulgation du carbone", "desc": "Plateforme évaluant la transparence environnementale pour plus de 700 investisseurs." },
+                    "brsr": { "name": "Rapport BRSR", "desc": "Cadre de divulgation obligatoire pour les entreprises en Inde." },
+                    "sdg": { "name": "Objectifs de développement durable", "desc": "17 objectifs mondiaux pour relever les défis sociaux et environnementaux d'ici 2030." }
                 },
                 "esg_pillars": {
                     "env": { "title": "Environnemental", "items": ["Empreinte carbone", "Gestion des déchets", "Utilisation de l'eau", "Efficacité énergétique"] },
@@ -804,12 +804,12 @@ const resources = {
                     "badge": "Certifications",
                     "title": "Nos Certifications",
                     "items": [
-                        "Vérificateur Principal ISO 14064",
-                        "Certifié GHG Protocol",
-                        "Partenaire Accrédité CDP",
-                        "Expert Cadre BRSR",
-                        "Certifié SBTi",
-                        "Reporting TCFD"
+                        { "name": "Vérificateur Principal ISO 14064", "desc": "Compétences avancées dans la vérification et la validation des déclarations GES." },
+                        { "name": "Certifié GHG Protocol", "desc": "La certification garantit la maîtrise de la méthodologie la plus adoptée pour les GES." },
+                        { "name": "Partenaire Accrédité CDP", "desc": "Désignation officiellement reconnue garantissant des normes de haute qualité." },
+                        { "name": "Expert Cadre BRSR", "desc": "Expertise dans le rapport de responsabilité et de durabilité des entreprises (BRSR)." },
+                        { "name": "Certifié SBTi", "desc": "Expertise dans la définition d'objectifs alignés sur la limitation du réchauffement." },
+                        { "name": "Reporting TCFD", "desc": "Expertise dans l'intégration des risques climatiques dans la stratégie." }
                     ]
                 },
                 "cta": {

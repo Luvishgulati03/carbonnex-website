@@ -22,6 +22,13 @@ const AdminDashboard = () => {
     const [resourceFile, setResourceFile] = useState(null);
     const [editingId, setEditingId] = useState(null);
 
+    // Clocks Management State
+    const [clocks, setClocks] = useState([]);
+    const [clockForm, setClockForm] = useState({
+        country_name: '', target_date: '', is_global: false
+    });
+    const [editingClockId, setEditingClockId] = useState(null);
+
     const { user, token, isAdmin, isLoggedIn } = useAuth();
     const navigate = useNavigate();
 
@@ -38,7 +45,18 @@ const AdminDashboard = () => {
 
         fetchUsers();
         fetchResources();
+        fetchClocks();
     }, [isLoggedIn, isAdmin, navigate]);
+
+    const fetchClocks = async () => {
+        try {
+            const res = await fetch(`${API_URL}/clocks`);
+            const data = await res.json();
+            setClocks(data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
     const fetchResources = async () => {
         try {
@@ -190,6 +208,69 @@ const AdminDashboard = () => {
         }
     };
 
+    const handleClockSubmit = async (e) => {
+        e.preventDefault();
+        setActionLoading(true);
+
+        const url = editingClockId ? `${API_URL}/clocks/${editingClockId}` : `${API_URL}/clocks`;
+        const method = editingClockId ? 'PUT' : 'POST';
+
+        try {
+            const res = await fetch(url, {
+                method: method,
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(clockForm)
+            });
+
+            if (!res.ok) throw new Error(editingClockId ? 'Failed to update clock' : 'Failed to create clock');
+
+            setClockForm({ country_name: '', target_date: '', is_global: false });
+            setEditingClockId(null);
+            fetchClocks();
+            alert(editingClockId ? 'Clock updated successfully!' : 'Clock added successfully!');
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setActionLoading(false);
+        }
+    };
+
+    const handleEditClock = (clock) => {
+        setEditingClockId(clock.id);
+        const [datePart] = clock.target_date.split('T');
+        setClockForm({
+            country_name: clock.country_name,
+            target_date: datePart,
+            is_global: !!clock.is_global
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const handleCancelEditClock = () => {
+        setEditingClockId(null);
+        setClockForm({ country_name: '', target_date: '', is_global: false });
+    };
+
+    const handleDeleteClock = async (id) => {
+        if (!window.confirm('Delete this clock?')) return;
+        setActionLoading(true);
+        try {
+            const res = await fetch(`${API_URL}/clocks/${id}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (!res.ok) throw new Error('Failed to delete');
+            fetchClocks();
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setActionLoading(false);
+        }
+    };
+
     if (!isAdmin) {
         return null;
     }
@@ -217,6 +298,12 @@ const AdminDashboard = () => {
                             onClick={() => setActiveTab('resources')}
                         >
                             📚 Resources
+                        </button>
+                        <button
+                            className={`admin-tab-btn ${activeTab === 'clocks' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('clocks')}
+                        >
+                            ⏱️ Net Zero Clocks
                         </button>
                     </div>
                 </header>
@@ -379,6 +466,86 @@ const AdminDashboard = () => {
                                                     <button
                                                         className="action-btn ban"
                                                         onClick={() => handleDeleteResource(r.id)}
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    )}
+
+                    {/* Net Zero Clocks Section */}
+                    {activeTab === 'clocks' && (
+                        <section className="admin-section">
+                            <h2>⏱️ Manage Net Zero Clocks</h2>
+
+                            {/* Add/Edit Clock Form */}
+                            <form className="resource-form" onSubmit={handleClockSubmit}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                                    <h3>{editingClockId ? 'Edit Clock' : 'Add New Country Clock'}</h3>
+                                    {editingClockId && (
+                                        <button type="button" onClick={handleCancelEditClock} style={{ background: 'none', border: 'none', color: '#666', cursor: 'pointer', fontSize: '0.9rem' }}>
+                                            Cancel Edit
+                                        </button>
+                                    )}
+                                </div>
+                                <div className="form-grid">
+                                    <input
+                                        type="text" placeholder="Country / Region Name (e.g., Global, UK, USA)" required
+                                        value={clockForm.country_name}
+                                        onChange={e => setClockForm({ ...clockForm, country_name: e.target.value })}
+                                    />
+                                    <input
+                                        type="date" required
+                                        value={clockForm.target_date}
+                                        onChange={e => setClockForm({ ...clockForm, target_date: e.target.value })}
+                                        title="Target Date"
+                                    />
+                                    <label style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '0.8rem', border: '1px solid #ddd', borderRadius: '4px' }}>
+                                        <input
+                                            type="checkbox"
+                                            checked={clockForm.is_global}
+                                            onChange={e => setClockForm({ ...clockForm, is_global: e.target.checked })}
+                                        />
+                                        Set as Default (Global Focus)
+                                    </label>
+                                </div>
+                                <button type="submit" className="submit-resource-btn" disabled={actionLoading} style={{ marginTop: '1rem' }}>
+                                    {actionLoading ? 'Saving...' : (editingClockId ? 'Update Clock' : 'Create Clock')}
+                                </button>
+                            </form>
+
+                            {/* Clocks Table */}
+                            <div className="admin-table-wrapper" style={{ marginTop: '2rem' }}>
+                                <table className="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Country / Region Name</th>
+                                            <th>Target Date</th>
+                                            <th>Global Default?</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {clocks.map(c => (
+                                            <tr key={c.id}>
+                                                <td>{c.country_name}</td>
+                                                <td>{new Date(c.target_date).toLocaleDateString()}</td>
+                                                <td>{c.is_global ? '✅ Yes' : '—'}</td>
+                                                <td className="actions-cell">
+                                                    <button
+                                                        className="action-btn view"
+                                                        onClick={() => handleEditClock(c)}
+                                                    >
+                                                        Edit
+                                                    </button>
+                                                    <button
+                                                        className="action-btn ban"
+                                                        onClick={() => handleDeleteClock(c.id)}
                                                     >
                                                         Delete
                                                     </button>

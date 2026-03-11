@@ -84,12 +84,12 @@ const HomePage = () => {
     ];
 
     const frameworks = [
-        { name: 'GRI', fullName: t('home.frameworks_list.gri') },
-        { name: 'TCFD', fullName: t('home.frameworks_list.tcfd') },
-        { name: 'SASB', fullName: t('home.frameworks_list.sasb') },
-        { name: 'CDP', fullName: t('home.frameworks_list.cdp') },
-        { name: 'BRSR', fullName: t('home.frameworks_list.brsr') },
-        { name: 'SDG', fullName: t('home.frameworks_list.sdg') },
+        { name: 'GRI', fullName: t('home.frameworks_list.gri.name'), desc: t('home.frameworks_list.gri.desc') },
+        { name: 'TCFD', fullName: t('home.frameworks_list.tcfd.name'), desc: t('home.frameworks_list.tcfd.desc') },
+        { name: 'SASB', fullName: t('home.frameworks_list.sasb.name'), desc: t('home.frameworks_list.sasb.desc') },
+        { name: 'CDP', fullName: t('home.frameworks_list.cdp.name'), desc: t('home.frameworks_list.cdp.desc') },
+        { name: 'BRSR', fullName: t('home.frameworks_list.brsr.name'), desc: t('home.frameworks_list.brsr.desc') },
+        { name: 'SDG', fullName: t('home.frameworks_list.sdg.name'), desc: t('home.frameworks_list.sdg.desc') },
     ];
 
     const esgPillars = [
@@ -171,16 +171,14 @@ const HomePage = () => {
                         className="hero__content"
                     /* Removed entry animation as requested */
                     >
-                        <span className="hero__badge">AI-Powered Tech</span>
-                        <h1 className="hero__title">
-                            Transform Your Carbon Footprint With Intelligent Automation
-                        </h1>
+                        <span className="hero__badge">{t('home.hero.badge')}</span>
+                        <h1 className="hero__title" dangerouslySetInnerHTML={{ __html: t('home.hero.title') }} />
                         <p className="hero__subtitle">
-                            Leverage advanced AI and automation to streamline complex ESG compliance. We turn difficult reporting into a seamless, tech-driven advantage for modern enterprises.
+                            {t('home.hero.subtitle')}
                         </p>
                         <div className="hero__ctas">
-                            <CTAButton href="/contact" size="large">Start Your AI ESG Journey</CTAButton>
-                            <CTAButton href="#services" variant="outline" size="large">Explore Smart Services</CTAButton>
+                            <CTAButton href="/contact" size="large">{t('home.hero.cta_primary')}</CTAButton>
+                            <CTAButton href="#services" variant="outline" size="large">{t('home.hero.cta_secondary')}</CTAButton>
                         </div>
                     </motion.div>
 
@@ -237,11 +235,11 @@ const HomePage = () => {
                 <div className="container">
                     <div className="beta-banner__content">
                         <div className="beta-banner__text">
-                            <span className="beta-banner__badge">AI Integration Beta</span>
-                            <h3>Automated Data Collection Engine</h3>
-                            <p>Try our newly released machine-learning powered ingestion tool that automatically maps your unstructured data into compliance-ready formats.</p>
+                            <span className="beta-banner__badge">{t('home.beta.badge')}</span>
+                            <h3>{t('home.beta.title')}</h3>
+                            <p>{t('home.beta.desc')}</p>
                         </div>
-                        <CTAButton href="/contact" variant="outline">Request Beta Access</CTAButton>
+                        <CTAButton href="/contact" variant="outline">{t('home.beta.cta')}</CTAButton>
                     </div>
                 </div>
             </section>
@@ -254,9 +252,9 @@ const HomePage = () => {
                 </div>
                 <div className="container" style={{ position: 'relative', zIndex: 1 }}>
                     <div className="section-header text-center">
-                        <span className="section-badge">Intelligent Insights</span>
-                        <h2>Why AI-Driven ESG?</h2>
-                        <p>Traditional compliance is slow and prone to errors. Our automated technology makes tracking, analyzing, and reporting effortless.</p>
+                        <span className="section-badge">{t('home.esg.badge')}</span>
+                        <h2>{t('home.esg.title')}</h2>
+                        <p>{t('home.esg.subtitle')}</p>
                     </div>
 
                     <div className="esg-definition">
@@ -439,7 +437,7 @@ const HomePage = () => {
                             >
                                 <div className="regulation-card__region">{reg.region}</div>
                                 <h4 className="regulation-card__name">{reg.regulation}</h4>
-                                <p className="regulation-card__desc">{reg.desc}</p>
+                                <p className="regulation-card__desc" dangerouslySetInnerHTML={{ __html: reg.desc }}></p>
                             </motion.div>
                         ))}
                     </div>
@@ -468,6 +466,7 @@ const HomePage = () => {
                             >
                                 <span className="framework-badge__name">{fw.name}</span>
                                 <span className="framework-badge__full">{fw.fullName}</span>
+                                <p className="framework-badge__desc" style={{ fontSize: '0.85rem', color: '#6B7280', marginTop: '10px' }}>{fw.desc}</p>
                             </motion.div>
                         ))}
                     </div>

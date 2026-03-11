@@ -67,11 +67,11 @@ const Header = () => {
                     category: t('nav.services_dropdown.core_platform'),
                     items: [
                         { name: t('nav.services_dropdown.items.carbon_accounting.title'), path: '/services/carbon-accounting', desc: t('nav.services_dropdown.items.carbon_accounting.desc'), color: '#10B981' },
-                        { name: t('nav.services_dropdown.items.esg_data.title'), path: '/services/esg-data', desc: t('nav.services_dropdown.items.esg_data.desc'), color: '#3B82F6' },
+                        { name: t('nav.services_dropdown.items.data_intelligence.title'), path: '/services/data-intelligence', desc: t('nav.services_dropdown.items.data_intelligence.desc'), color: '#3B82F6' },
                         { name: t('nav.services_dropdown.items.compliance.title'), path: '/services/compliance', desc: t('nav.services_dropdown.items.compliance.desc'), color: '#F59E0B' },
-                        { name: t('nav.services_dropdown.items.evidence.title'), path: '/services/evidence-management', desc: t('nav.services_dropdown.items.evidence.desc'), color: '#8B5CF6' },
+                        { name: t('nav.services_dropdown.items.compliance_automation.title'), path: '/services/compliance-automation', desc: t('nav.services_dropdown.items.compliance_automation.desc'), color: '#8B5CF6' },
                         { name: t('nav.services_dropdown.items.ai_validation.title'), path: '/services/ai-validation', desc: t('nav.services_dropdown.items.ai_validation.desc'), color: '#EC4899' },
-                        { name: t('nav.services_dropdown.items.insights.title'), path: '/services/insights', desc: t('nav.services_dropdown.items.insights.desc'), color: '#6366F1' },
+                        { name: t('nav.services_dropdown.items.dashboards.title'), path: '/services/dashboards', desc: t('nav.services_dropdown.items.dashboards.desc'), color: '#6366F1' },
                     ]
                 },
                 {

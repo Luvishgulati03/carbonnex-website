@@ -1,0 +1,13 @@
+﻿Starting Servers and Serveo... 03/11/2026 11:24:18 
+----------------------------------------
+
+=== YOUR LIVE LINKS ===
+
+[FRONTEND LINK]:
+[32mForwarding HTTP traffic from https://a049f10e5564864a-122-161-49-27.serveousercontent.com
+
+[BACKEND LINK]:
+[32mForwarding HTTP traffic from https://9f20f17782febd58-122-161-49-27.serveousercontent.com
+
+----------------------------------------
+IMPORTANT: Update frontend API_URL to match the new Backend Link above if needed.

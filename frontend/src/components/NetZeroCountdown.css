@@ -52,6 +52,46 @@
     text-transform: uppercase;
 }
 
+.countdown-title-select-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.countdown-select-green {
+    background: transparent;
+    border: none;
+    color: #10B981;
+    font-family: inherit;
+    font-weight: 700;
+    letter-spacing: inherit;
+    font-size: inherit;
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(16, 185, 129, 0.6), 0 0 20px rgba(16, 185, 129, 0.3);
+    transition: all 0.2s ease;
+    padding-right: 20px; /* space for arrow */
+}
+
+.countdown-select-green:hover {
+    color: #34d399;
+    text-shadow: 0 0 15px rgba(16, 185, 129, 0.8), 0 0 25px rgba(16, 185, 129, 0.5);
+}
+
+.dropdown-arrow-green {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8em;
+    color: #10B981;
+    text-shadow: 0 0 10px rgba(16, 185, 129, 0.6), 0 0 20px rgba(16, 185, 129, 0.3);
+    pointer-events: none; /* Let clicks pass through to select */
+}
+
 .countdown-timer {
     display: flex;
     align-items: center;

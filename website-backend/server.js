@@ -788,6 +788,70 @@ app.post('/api/admin/users/:id/ban', requireAdmin, async (req, res) => {
     }
 });
 
+// ================= NET ZERO CLOCKS =================
+
+// Get Clocks (Public)
+app.get('/api/clocks', async (req, res) => {
+    try {
+        const [rows] = await pool.query('SELECT * FROM net_zero_clocks ORDER BY is_global DESC, country_name ASC');
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Admin Route to Create Clock
+app.post('/api/clocks', requireAdmin, async (req, res) => {
+    const { country_name, target_date, is_global } = req.body;
+    if (!country_name || !target_date) return res.status(400).json({ error: "Country and Target Date are required" });
+
+    try {
+        if (is_global) {
+            await pool.query('UPDATE net_zero_clocks SET is_global = FALSE');
+        }
+
+        const [result] = await pool.query(
+            'INSERT INTO net_zero_clocks (country_name, target_date, is_global) VALUES (?, ?, ?)',
+            [country_name, target_date, is_global ? 1 : 0]
+        );
+        res.status(201).json({ message: "Clock Created!", id: result.insertId });
+    } catch (err) {
+        if (err.code === 'ER_DUP_ENTRY') {
+            return res.status(400).json({ error: "Country already exists" });
+        }
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Admin Route to Edit Clock
+app.put('/api/clocks/:id', requireAdmin, async (req, res) => {
+    const { id } = req.params;
+    const { country_name, target_date, is_global } = req.body;
+
+    try {
+        if (is_global) {
+            await pool.query('UPDATE net_zero_clocks SET is_global = FALSE WHERE id != ?', [id]);
+        }
+
+        await pool.query('UPDATE net_zero_clocks SET country_name = ?, target_date = ?, is_global = ? WHERE id = ?', [country_name, target_date, is_global ? 1 : 0, id]);
+        res.json({ message: 'Clock updated' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// Admin Route to Delete Clock
+app.delete('/api/clocks/:id', requireAdmin, async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        await pool.query('DELETE FROM net_zero_clocks WHERE id = ?', [id]);
+        res.json({ message: 'Clock deleted' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 // ================= RESOURCES (Phase 9) =================
 
 // Get Resources (Public or Registered)
